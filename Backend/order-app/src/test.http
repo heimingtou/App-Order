@@ -1,1 +1,45 @@
-Get http://localhost:3000/user
+Get http://localhost:3000/bill/3
+
+###
+POST http://localhost:3000/bill
+Content-Type: application/json
+
+{
+  "uid": 3,
+  "orderDetail": [
+    {
+      "pr_id": 10,
+      "sl": 2
+    },
+    {
+      "pr_id": 4,
+      "sl": 3
+    }
+  ]
+}
+
+###
+Get http://localhost:3000/bill/user/3
+
+###
+Get http://localhost:3000/bill/1
+###
+
+Patch http://localhost:3000/bill/3
+Content-Type: application/json
+
+{
+  "orderDetail":[
+    {
+      "pr_id": 5,
+      "sl": 3
+    },
+    {
+      "pr_id": 4,
+      "sl": 3
+    }
+  ]
+}
+
+###
+Delete http://localhost:3000/bill/1

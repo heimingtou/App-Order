@@ -5,22 +5,22 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMan
 
 @Entity ('bills')
 export class Bill {
-    @PrimaryGeneratedColumn()
-    bill_id!: number;
+  @PrimaryGeneratedColumn()
+  bill_id!: number;
     
-    @Column({type: 'int'})
-    uid!: number;
+  @Column({type: 'int'})
+  uid!: number;
 
-    @Column({type: 'numeric', precision: 10, scale:2})
-    total!: number;
+  @Column({type: 'numeric', precision: 10, scale:2})
+  total!: number;
 
-    @Column({type: 'timestamp'})
-    time!: Date;
+  @Column({type: 'timestamp'})
+  time!: Date;
 
-    @Column({type: 'boolean'})
-    status!: boolean;
+  @Column({type: 'boolean'})
+  status!: boolean;
 
-     @OneToMany(() => Orderdetail, (orderdetail)=>orderdetail.bill,{
+  @OneToMany(() => Orderdetail, (orderdetail)=>orderdetail.bill,{
     cascade: true,
     onDelete: 'CASCADE'
   })
@@ -30,6 +30,6 @@ export class Bill {
   @JoinColumn({ name: 'uid' })
   user!: User;
 
-  @OneToMany(()=>OrderAuditLog, (orderauditlogs)=>orderauditlogs.bill)
-  orderauditlogs:OrderAuditLog[];
+  @OneToMany(() => OrderAuditLog, (orderauditlogs) => orderauditlogs.bill)
+  orderauditlogs: OrderAuditLog[];
 }

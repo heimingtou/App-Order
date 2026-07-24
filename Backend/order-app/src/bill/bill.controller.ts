@@ -16,6 +16,10 @@ export class BillController {
   findAll() {
     return this.billService.findAll();
   }
+  @Get('user/:uid')
+  findBillOfUser(@Param('uid') uid:string){
+    return this.billService.findBillOfUser(+uid) // Dấu cộng (+) phía trước dùng để chuyển đổi kiểu string từ URL sang number
+  }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
