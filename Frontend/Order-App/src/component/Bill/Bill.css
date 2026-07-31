@@ -1,0 +1,37 @@
+.bill-container{
+     display: grid;
+    /* Tự động chia cột: mỗi cột tối thiểu 250px, tự động lấp đầy màn hình */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px; /* Khoảng cách giữa các ô */
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 15px;
+
+}
+.TotalBill_contain{
+    height: fit-content;
+    min-height: 30rem;
+}
+.TotalBill{
+   position: sticky; /* Dính cố định ở đáy khung bill-container */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgb(246, 240, 233);
+}
+.text-total{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0px 10px;
+    font-size: 25px;
+    color: black;
+}
+.btn-Call{
+    height: 2.5rem;
+    width: 5rem;
+    border-radius: 15px;
+    background-color: #1e771f;
+    border: none;
+}

@@ -43,3 +43,6 @@ Content-Type: application/json
 
 ###
 Delete http://localhost:3000/bill/1
+
+###
+Get http://localhost:3000/products
