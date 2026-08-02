@@ -2,6 +2,7 @@
 import { FaPlus } from "react-icons/fa";
 import './menu_item.css'
 import { RiSubtractFill } from "react-icons/ri";
+import { useEffect, useState } from "react";
 
 type DrinkProp={
     pr_id: number;
@@ -34,7 +35,11 @@ export default function Menu_item({drink,listBill, dispatch}:listBillProp){
 
     const existingItem = listBill.find(item => item.id === drink.pr_id);
     const quantity = existingItem ? existingItem.quantity : 0;
-  
+    const [localQty, setLocalQty]= useState(quantity);
+
+   useEffect(() => {
+        setLocalQty(quantity);
+    }, [quantity]);
     const increase=()=>{
      
           const currentBill:BillProp={
@@ -103,8 +108,9 @@ const imagesUrl = new URL(`../../assets/Image/${fileName}`, import.meta.url).hre
            {quantity>0? (<div className="button_contain">
                 <button onClick={decrease}> <RiSubtractFill/> </button>
                 <input type="number" className="input_number" id="soluong"
-                value={quantity}
-                onChange={handleChange} ></input>
+                value={localQty} // Dùng state nội bộ kết hợp useEffect để cập nhật tức thì khi bấm + / -
+                        onChange={(e) => setLocalQty(e.target.value === '' ? 0 : parseInt(e.target.value))} // Cho phép gõ xóa tự do
+                        onBlur={handleChange}></input>
                 <button onClick={increase}> <FaPlus/> </button>
             </div>):( <div className="button_contain">
                 <button className="add_button" onClick={addProduct}>add product</button>

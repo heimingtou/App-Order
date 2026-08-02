@@ -1,0 +1,66 @@
+.menuContain{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    padding: 5px;
+    width: min(1200px, 100%);
+    box-sizing: border-box;
+    margin: 15px auto 0;
+}
+.ContainMenu{
+    min-height: 100vh;
+    width: 100%;
+
+    /* --- Các thuộc tính background của bạn --- */
+    background-image: url("../../assets//Image/bg.png"); /* Link ảnh nền của bạn */
+    /* Căn giữa ảnh nền */
+    background-position: center; 
+    
+    /* Không lặp lại ảnh */
+    background-repeat: no-repeat; 
+    
+    /* CỐ ĐỊNH ẢNH: Giúp ảnh đứng yên, không cuộn theo trang */
+    background-attachment: fixed;
+    opacity: 0.8;
+}
+.catagories_contain{
+    padding-top: 3.8rem;
+    width: min(1200px, 100%);
+    margin: 0 auto;
+}
+
+.ContainMenu h2{
+    font-size: 45px;
+    color: black;
+    text-align: center;
+}
+.nav-contain{
+    position: sticky;
+    top: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    height: 3.5rem;
+}
+.btn-nav{
+    height: 100%;
+    width: 100%;
+    font-size: 30px;
+    background-color: #09780a;
+    border: none;
+    font-family:'Times New Roman', Times, serif;
+}
+.btn-nav:hover{
+    background-color: #0f8812;
+}
+.btn-shop{
+    margin-top: 10px;
+    width: 5rem;
+    height: 2.5rem;
+    background-color: #09780a;
+    border: none;
+}
+.btn-shop:hover{
+    background-color: #0f8812;
+}
