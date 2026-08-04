@@ -46,3 +46,20 @@ Delete http://localhost:3000/bill/1
 
 ###
 Get http://localhost:3000/products
+###
+Post http://localhost:3000/user/login
+Content-Type: application/json
+
+{
+  "username":"khach_hang_vip_01",
+  "password": "vip13"
+}
+
+###
+Post http://localhost:3000/user
+Content-Type: application/json
+
+{
+  "username":"sfkdfs",
+  "email":"haj@gmail.com"
+}

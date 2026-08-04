@@ -6,4 +6,8 @@ export class CreateUserDto {
     @MaxLength(50)
     username!:string;
 
+    @IsString()
+    @MaxLength(50)
+    email:string;
+
 }

@@ -5,31 +5,34 @@ import './menu_page.css'
 import { useEffect, useReducer, useState } from "react";
 import { CgMenuBoxed } from "react-icons/cg";
 
-type DrinkProp={
-   pr_id: number;
+type DrinkProp = {
+    pr_id: number;
     name: string;
     price: number;
     image: string;
     trang: boolean;
-}
+};
+
 type CategoryProp = {
     id_loai: number;
     ten_loai: string;
     danh_sach_san_pham: DrinkProp[];
-}
-type BillProp={
-    id:number;
+};
+
+export type BillProp = {
+    id: number;
     name: string;
     price: number;
-    quantity:number;
+    quantity: number;
     image: string;
-}
-type Action=
-    |{type: 'Add', payload:BillProp}
-    |{type: 'Sub', payload:BillProp}
-    |{type: 'Clear', payload:BillProp}
-    |{type: 'Handle', payload:BillProp}
-    |{type: 'AddToBill', payload:BillProp}
+};
+
+export type Action =
+    | { type: 'Add'; payload: BillProp }
+    | { type: 'Sub'; payload: BillProp }
+    | { type: 'Clear'; payload: BillProp }
+    | { type: 'Handle'; payload: BillProp }
+    | { type: 'AddToBill'; payload: BillProp };
 export default function Menu_page(){
     const [menu, setMenu]= useState<CategoryProp[]>([])
     const [loading, setLoading] = useState<boolean>(true);
@@ -63,7 +66,7 @@ export default function Menu_page(){
                 case 'Handle':{
                      const existing=state.findIndex(item=>item.id===action.payload.id);
                     if(existing>=0){
-                        const currentItem= state[existing];
+                        // const currentItem= state[existing];
                         if(action.payload.quantity>0)
                         {return state.map((item)=>item.id===action.payload.id?{...item,quantity:action.payload.quantity}:item)}
                         else{
@@ -131,7 +134,7 @@ export default function Menu_page(){
                 <button className="btn-nav"  onClick={()=>goTo("Sinh tố & Nước ép")}>Sinh tố</button>
                 <button className="btn-nav"  onClick={()=>goTo("Đồ ăn vặt")}>Ăn vặt</button>
             </nav>
-            <button className="btn-shop" onClick={()=>setChose(!chose)}> {chose?<BiShoppingBag size={30} />: <CgMenuBoxed size={30}/>} </button>
+            <button className="btn-shop" onClick={()=>setChose(!chose)}> {chose ?<p className="btn-shop-text"><span>Total Bill:</span> <span>{totalBill}</span></p> : <CgMenuBoxed size={30} />}</button>
             
             {chose? MenuDrink(): <Bill listBill={LBill} dispatch={dispatch} total={totalBill}></Bill>}
            

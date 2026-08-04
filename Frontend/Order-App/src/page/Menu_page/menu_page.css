@@ -3,7 +3,7 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 10px;
     padding: 5px;
-    width: min(1200px, 100%);
+    width: min(1100px, 100%);
     box-sizing: border-box;
     margin: 15px auto 0;
 }
@@ -22,6 +22,10 @@
     /* CỐ ĐỊNH ẢNH: Giúp ảnh đứng yên, không cuộn theo trang */
     background-attachment: fixed;
     opacity: 0.8;
+  
+}
+.ContainMenu > div:last-child{
+    margin-bottom: 6rem;
 }
 .catagories_contain{
     padding-top: 3.8rem;
@@ -55,12 +59,26 @@
     background-color: #0f8812;
 }
 .btn-shop{
-    margin-top: 10px;
-    width: 5rem;
-    height: 2.5rem;
+   
+    position: fixed;
+    bottom: 5px;
+    left: 50%;                    /* Đẩy mép trái của nút ra chính giữa màn hình */
+    transform: translateX(-50%);
+    width: 75em;
+    height: 5rem;
     background-color: #09780a;
     border: none;
+    border-radius: 10px;
+
 }
 .btn-shop:hover{
     background-color: #0f8812;
+}
+.btn-shop-text{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 35px;
+    margin:auto 15px;
+    
 }

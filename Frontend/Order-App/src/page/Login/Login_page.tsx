@@ -1,46 +1,38 @@
-import { IoEye, IoEyeOff } from 'react-icons/io5';
-import './Login_page.css'
+import './Login_page.css';
 import { useState } from 'react';
+import Login from '../../component/Login/Login';
+import Register from '../../component/Register/register';
 
+export default function Login_page() {
+    const [login, setLogin] = useState<boolean>(true);
 
-export default function Login_page(){
-    const [username, saveUserName] = useState<string>("");
-  const [password, savePassword] = useState<string>("");
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-    return(
+    return (
         <div className='Contain'>
             <div className='input_contain'>
-                <div className="field-contain">
-                    <div className="username">
-                    <label htmlFor="username">User Name:</label>
-                    <input
-                        type="text"
-                        id="username"
-                        placeholder="Nhập username"
-                        onChange={(e) => saveUserName(e.target.value)}>
-                    </input>
-                </div>
-                <div className="password">
-                    <label htmlFor="pass">Password: </label>
-                    <div className="password-field">               
-                    <input
-                    className="passwordInput"
-                    type={showPassword ? "text" : "password"}
-                    id="pass"
-                    placeholder="Nhập password"
-                    onChange={(e) => savePassword(e.target.value)}
-                    value={password}/>
+                <nav className='nav-log'>
                     <button
-                    type="button"
-                    className="password-toggle"
-                    onClick={() => setShowPassword((prev) => !prev)}>
-                    {showPassword ? <IoEye color="black" /> : <IoEyeOff color="black"/>}
-                    </button> 
-                    </div>
-                </div>
-                </div>
-                <button className='btn-login'>Đăng Nhập</button>
+                        onClick={() => setLogin(true)}
+                        style={{
+                            backgroundColor: !login ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.1)',
+                            backdropFilter: 'blur(5px)',
+                            transition: '0.8s',
+                        }}
+                    >
+                        Login
+                    </button>
+                    <button
+                        onClick={() => setLogin(false)}
+                        style={{
+                            backgroundColor: login ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.1)',
+                            backdropFilter: 'blur(5px)',
+                            transition: '0.8s',
+                        }}
+                    >
+                        Register
+                    </button>
+                </nav>
+                {login ? <Login /> : <Register />}
             </div>
         </div>
-    )
+    );
 }

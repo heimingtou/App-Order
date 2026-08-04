@@ -103,7 +103,7 @@ const imagesUrl = new URL(`../../assets/Image/${fileName}`, import.meta.url).hre
             </div>
             <div className="text_content">
                 <h2 className="nameDrink">{drink.name}</h2>
-                <p>{drink.price}</p>
+                <p><b>{drink.price}</b></p>
             </div>
            {quantity>0? (<div className="button_contain">
                 <button onClick={decrease}> <RiSubtractFill/> </button>
