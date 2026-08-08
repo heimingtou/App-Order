@@ -1,7 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { BillService } from './bill.service';
 import { CreateBillDto } from './dto/create-bill.dto';
 import { UpdateBillDto } from './dto/update-bill.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { RolesGaurd } from 'src/role.guard';
+import { Role } from 'src/role.decorator';
 
 @Controller('bill')
 export class BillController {
@@ -13,12 +25,14 @@ export class BillController {
   }
 
   @Get()
+  @UseGuards(AuthGuard('jwt'), RolesGaurd)
+  @Role('admin')
   findAll() {
     return this.billService.findAll();
   }
   @Get('user/:uid')
-  findBillOfUser(@Param('uid') uid:string){
-    return this.billService.findBillOfUser(+uid) // Dấu cộng (+) phía trước dùng để chuyển đổi kiểu string từ URL sang number
+  findBillOfUser(@Param('uid') uid: string) {
+    return this.billService.findBillOfUser(+uid); // Dấu cộng (+) phía trước dùng để chuyển đổi kiểu string từ URL sang number
   }
 
   @Get(':id')

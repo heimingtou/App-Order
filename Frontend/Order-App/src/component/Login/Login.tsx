@@ -18,12 +18,15 @@ export default function Login(){
                 body: JSON.stringify({ username, password })
             });
             const data=await response.json();
+            console.log('Login response:', data);
             if(data.success){
                 alert(data.message);
+                // Lưu access token (nếu backend trả về) và thông tin user (nếu có)
+                if (data.access_token) {
+                    localStorage.setItem('token', data.access_token);
+                }
+                localStorage.setItem('user', JSON.stringify(data.user ?? { username }));
                 navigate('/menu');
-                // Lưu thông tin user vào localStorage để duy trì đăng nhập
-                localStorage.setItem('user', JSON.stringify(data.user));
-                // Gọi callback chuyển trang hoặc đổi state ở App.js
             } else {
                 alert(data.message);
             }

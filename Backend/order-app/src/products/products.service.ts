@@ -1,18 +1,24 @@
 import { Injectable } from '@nestjs/common';
+import { DataSource } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { DataSource } from 'typeorm';
 
 @Injectable()
 export class ProductsService {
-  constructor (private dataSource: DataSource){}
+  constructor(private dataSource: DataSource) {}
   create(createProductDto: CreateProductDto) {
-    return 'This action adds a new product';
+    return createProductDto;
   }
 
-  async findAll() {
-    const result= await this.dataSource.query('SELECT get_full_menu_json()')
-    return result[0].get_full_menu_json;
+  async findAll(): Promise<unknown> {
+    const rawResult = await this.dataSource.query(
+      'SELECT get_full_menu_json()',
+    );
+    const result = Array.isArray(rawResult)
+      ? (rawResult[0] as Record<string, unknown> | undefined)
+      : undefined;
+    const menu = result?.menu ?? result?.get_full_menu_json;
+    return menu ?? null;
   }
 
   findOne(id: number) {
@@ -20,7 +26,7 @@ export class ProductsService {
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+    return { id, ...updateProductDto };
   }
 
   remove(id: number) {

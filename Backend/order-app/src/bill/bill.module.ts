@@ -6,7 +6,7 @@ import { Bill } from './entities/bill.entity';
 import { Product } from 'src/products/entities/product.entity';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Bill, Product])],
+  imports: [TypeOrmModule.forFeature([Bill, Product])],
   controllers: [BillController],
   providers: [BillService],
 })

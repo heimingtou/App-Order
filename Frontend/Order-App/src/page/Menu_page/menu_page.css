@@ -64,12 +64,11 @@
     bottom: 5px;
     left: 50%;                    /* Đẩy mép trái của nút ra chính giữa màn hình */
     transform: translateX(-50%);
-    width: 75em;
     height: 5rem;
     background-color: #09780a;
     border: none;
     border-radius: 10px;
-
+    width: min(75em, 100%);
 }
 .btn-shop:hover{
     background-color: #0f8812;

@@ -1,15 +1,21 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private jwtService: JwtService,
   ) {}
 
   async login(loginDto: { username: string; password: string }) {
@@ -23,28 +29,35 @@ export class UserService {
     if (password !== user.pass) {
       throw new UnauthorizedException('pass error');
     }
+    const payload = {
+      uid: user.uid,
+      username: user.username,
+      role: user.role,
+    };
 
     return {
       success: true,
       message: 'Đăng nhập thành công!',
-      user: {
-        uid: user.uid,
-        username: user.username,
-        role: user.role,
-      },
+      access_token: this.jwtService.sign(payload),
     };
   }
 
   async create(createUserDto: CreateUserDto) {
     if (!createUserDto.username) {
-      throw new BadRequestException({ success: false, message: 'Thiếu thông tin username!' });
+      throw new BadRequestException({
+        success: false,
+        message: 'Thiếu thông tin username!',
+      });
     }
     const exist = await this.userRepository.find({
       where: { username: createUserDto.username },
     });
 
     if (exist.length > 0) {
-      throw new BadRequestException({ success: false, message: 'Tài khoản đã tồn tại!' });
+      throw new BadRequestException({
+        success: false,
+        message: 'Tài khoản đã tồn tại!',
+      });
     }
 
     const newUser = this.userRepository.create({
@@ -65,8 +78,11 @@ export class UserService {
     return `This action returns a #${id} user`;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  update(
+    id: number,
+    updateUserDto: UpdateUserDto,
+  ): { id: number } & UpdateUserDto {
+    return { id, ...updateUserDto };
   }
 
   remove(id: number) {

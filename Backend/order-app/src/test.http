@@ -22,7 +22,8 @@ Content-Type: application/json
 Get http://localhost:3000/bill/user/3
 
 ###
-Get http://localhost:3000/bill/1
+Get http://localhost:3000/bill
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsInVzZXJuYW1lIjoiYWRtaW5fbWluaCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4NjAzNjExMiwiZXhwIjoxNzg2MTIyNTEyfQ.XlsEbD5yChrGl2ZQWQSDElFNZRjaOAVWLJz3LNWxyRQ
 ###
 
 Patch http://localhost:3000/bill/3
@@ -46,13 +47,14 @@ Delete http://localhost:3000/bill/1
 
 ###
 Get http://localhost:3000/products
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsInVzZXJuYW1lIjoiYWRtaW5fbWluaCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4NjAzMjc5MCwiZXhwIjoxNzg2MTE5MTkwfQ._fiP8inaG4vrIeaUeViz3FNvUCuCvJo78nSCfDuBDfU
 ###
 Post http://localhost:3000/user/login
 Content-Type: application/json
 
 {
-  "username":"khach_hang_vip_01",
-  "password": "vip13"
+  "username":"admin_minh",
+  "password": "adm123"
 }
 
 ###

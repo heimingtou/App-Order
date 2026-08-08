@@ -4,6 +4,7 @@ import Menu_item from "../../component/menu_item/menu_item";
 import './menu_page.css'
 import { useEffect, useReducer, useState } from "react";
 import { CgMenuBoxed } from "react-icons/cg";
+import Bill_admin from "../Bill_admin_page/Bill_admin";
 
 type DrinkProp = {
     pr_id: number;
@@ -38,16 +39,16 @@ export default function Menu_page(){
     const [loading, setLoading] = useState<boolean>(true);
     const[chose,setChose]=useState(true);
     function BillReducer(state:BillProp[], action:Action){
-            switch(action.type){
-                case 'Add':{
-                    const existing=state.findIndex(item=>item.id===action.payload.id);
-                    if(existing>=0){
-                        return state.map((item)=>item.id===action.payload.id ?{...item,quantity:item.quantity+1}:item)
+        switch(action.type){
+            case 'Add':{
+                const existing=state.findIndex(item=>item.id===action.payload.id);
+                if(existing>=0){
+                    return state.map((item)=>item.id===action.payload.id ?{...item,quantity:item.quantity+1}:item)
                     }
-                    else
+                else
                     {
-                        return(
-                            [...state,action.payload]
+                    return(
+                        [...state,action.payload]
                         )
                     }
                 }
@@ -88,16 +89,38 @@ export default function Menu_page(){
             }
         }
         const [LBill, dispatch]= useReducer(BillReducer, []);
-    useEffect(()=>{
-        fetch('http://localhost:3000/products').then((res)=> res.json()).then((data)=>{
-            setMenu(data);
-            console.log("hoan tat")
-            setLoading(false)
-        }).catch((err)=>{
-            console.error("Loi khi fetch: ",err);
-            setLoading(false);
-        })
-    },[])
+        useEffect(()=>{
+            (async ()=>{
+                try{
+                    const token = localStorage.getItem('token');
+                    const headers: any = {};
+                    if (token) headers['Authorization'] = `Bearer ${token}`;
+
+                    const res = await fetch('http://localhost:3000/products', { headers });
+                    const data = await res.json().catch(()=>null);
+
+                    if (!res.ok) {
+                        console.error('Fetch products failed', res.status, data);
+                        setMenu([]);
+                        setLoading(false);
+                        return;
+                    }
+
+                    if (!Array.isArray(data)) {
+                        console.error('Products response is not an array', data);
+                        setMenu([]);
+                    } else {
+                        setMenu(data);
+                        console.log('hoan tat');
+                    }
+                    setLoading(false);
+                }catch(err){
+                    console.error("Loi khi fetch: ",err);
+                    setMenu([]);
+                    setLoading(false);
+                }
+            })()
+        },[])
     if (loading) {
         return <div className="loading">Đang tải danh sách thực đơn...</div>;
     }
@@ -135,7 +158,7 @@ export default function Menu_page(){
                 <button className="btn-nav"  onClick={()=>goTo("Đồ ăn vặt")}>Ăn vặt</button>
             </nav>
             <button className="btn-shop" onClick={()=>setChose(!chose)}> {chose ?<p className="btn-shop-text"><span>Total Bill:</span> <span>{totalBill}</span></p> : <CgMenuBoxed size={30} />}</button>
-            
+            <Bill_admin></Bill_admin>
             {chose? MenuDrink(): <Bill listBill={LBill} dispatch={dispatch} total={totalBill}></Bill>}
            
         </div>

@@ -1,17 +1,22 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { CreateBillDto } from './dto/create-bill.dto';
 import { UpdateBillDto } from './dto/update-bill.dto';
 import { Bill } from './entities/bill.entity';
 import { Product } from 'src/products/entities/product.entity';
+import { DataSource } from 'typeorm';
 
 @Injectable()
 export class BillService {
   constructor(
     @InjectRepository(Bill)
     private readonly billRepository: Repository<Bill>,
-
+    private dataSource:DataSource,
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
   ) {}
@@ -24,11 +29,14 @@ export class BillService {
     });
 
     if (existingProducts.length !== productIds.length) {
-      throw new BadRequestException('Một hoặc nhiều món ăn (pr_id) không tồn tại trong hệ thống!');
+      throw new BadRequestException(
+        'Một hoặc nhiều món ăn (pr_id) không tồn tại trong hệ thống!',
+      );
     }
 
     const newBill = this.billRepository.create({
       uid: createBillDto.uid,
+      status:false,
       orderDetail: createBillDto.orderDetail.map((item) => ({
         pr_id: item.pr_id,
         sl: item.sl,
@@ -39,12 +47,11 @@ export class BillService {
   }
 
   async findAll(): Promise<Bill[]> {
-    return await this.billRepository.find({
-      relations: {
-        user: true,
-        orderDetail: true,
-      },
-    });
+    const rawResult = await this.dataSource.query('SELECT * FROM GET_ALL_BILL()');
+    
+    // Vì dùng 'SELECT * FROM function()', PostgreSQL sẽ trả về trực tiếp mảng các dòng (rows) 
+    // chứ không bọc trong một object chứa tên hàm nữa.
+    return rawResult || [];
   }
 
   async findOne(id: number): Promise<Bill> {

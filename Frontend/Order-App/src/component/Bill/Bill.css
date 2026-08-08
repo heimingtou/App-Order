@@ -4,9 +4,9 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 10px; /* Khoảng cách giữa các ô */
     padding: 5px;
-    width: 100%;
+     width: min(1100px, 100%);
     box-sizing: border-box;
-    margin-top: 15px;
+    margin: 15px auto 0;
 
 }
 .TotalBill_contain{
