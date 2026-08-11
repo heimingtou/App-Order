@@ -1,0 +1,62 @@
+
+th, td{
+    border-bottom: 1px solid ;
+    padding:5px 25px;
+    font-size: 18px;
+    color: rgb(34, 33, 33);
+}
+table{
+    width: 100%;
+    margin-bottom: 35px;
+}
+.Cotain-popup{
+    margin: 10rem auto;
+    width: fit-content;
+    max-width: 18rem;
+    height: fit-content;
+    background-color: #E6E6E6;
+    border-radius: 15px;
+}
+.ContainMenu .Contain-Popup h2{
+    padding-top: 5px;
+    font-size: 23px;
+}
+p{
+    font-size: 20px;
+    padding: 2px 1px;
+}
+.Contain-Popup{
+    background-color: rgba(8, 124, 225, 0.079);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+}
+.btn-contain{
+    margin-top:15px;
+    display: flex;
+    justify-content: space-around;
+}
+.btn-contain button{
+    width: 35%;
+    aspect-ratio: 2.5/1;
+    border-radius: 15px;
+    border: 1px solid #0a0606;
+}
+.accept{
+    background-color: rgb(11, 60, 237);
+}
+.cancel{
+    background-color: #f9f9f9;
+    color: black;
+}
+button{
+    width: 30%;
+    aspect-ratio: 3/1;
+    background-color: #135add;
+    border-radius: 18px;
+    font-size: 20px;
+    margin-bottom: 15px;
+}

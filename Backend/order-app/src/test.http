@@ -41,7 +41,14 @@ Content-Type: application/json
     }
   ]
 }
+###
 
+Patch http://localhost:3000/bill/21/status
+Content-Type: application/json
+
+{
+ "status":"false"
+}
 ###
 Delete http://localhost:3000/bill/1
 

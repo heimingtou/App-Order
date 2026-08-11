@@ -1,0 +1,31 @@
+.Bill_admin{
+    width: 70%;
+    height: 45rem;
+    background-color: rgba(243, 168, 168, 0.31);
+    display: grid;
+    /* Tự động sắp xếp các cột, mỗi cột tối thiểu 320px, phần dư tự co giãn */
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 20px; /* Khoảng cách giữa các card bill */
+    padding: 20px;
+    overflow-y: auto; /* Cho phép cuộn dọc nếu quá nhiều hóa đơn */
+    margin: auto;
+}
+.Bill_contain{
+    height: fit-content;
+    background-color: aliceblue;
+}
+th, td{
+    border-bottom: 1px solid ;
+    padding:5px 3px;
+    font-size: 14px;
+    color: rgb(34, 33, 33);
+}
+table{
+    width: 100%;
+    margin-bottom: 35px;
+    table-layout: fixed;
+}
+h1{
+    color: rgb(66, 7, 7);
+    font-family: 'Courier New', Courier, monospace;
+}

@@ -36,31 +36,37 @@ export default function Menu_item({drink,listBill, dispatch}:listBillProp){
     const existingItem = listBill.find(item => item.id === drink.pr_id);
     const quantity = existingItem ? existingItem.quantity : 0;
     const [localQty, setLocalQty]= useState(quantity);
-
-   useEffect(() => {
+    if(quantity!==localQty){
+        console.log(quantity)
         setLocalQty(quantity);
-    }, [quantity]);
+    }
+//    useEffect(() => {
+//         console.log(quantity)
+//         setLocalQty(quantity);
+//     }, [quantity]);
     const increase=()=>{
      
-          const currentBill:BillProp={
+        const currentBill:BillProp={
         id: drink.pr_id,
         name: drink.name,
         price: drink.price,
         quantity:quantity+1,
         image: drink.image,
     }
+        setLocalQty(currentBill.quantity)
         dispatch({type: 'Add', payload:currentBill})
     }
     const decrease=()=>{
           
-            const currentBill:BillProp={
+        const currentBill:BillProp={
         id: drink.pr_id,
         name: drink.name,
         price: drink.price,
         quantity:quantity-1,
         image: drink.image,
-    }
-          dispatch({type: 'Sub', payload:currentBill})
+        }
+        setLocalQty(currentBill.quantity)
+        dispatch({type: 'Sub', payload:currentBill})
     }
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const val = parseInt(e.target.value);
@@ -85,6 +91,7 @@ export default function Menu_item({drink,listBill, dispatch}:listBillProp){
         quantity:1,
         image: drink.image,
     }
+        setLocalQty(currentBill.quantity)
         dispatch({type: 'AddToBill', payload:currentBill})
     }
       

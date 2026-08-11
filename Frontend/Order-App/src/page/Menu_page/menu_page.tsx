@@ -1,4 +1,4 @@
-import { BiShoppingBag } from "react-icons/bi";
+
 import Bill from "../../component/Bill/Bill";
 import Menu_item from "../../component/menu_item/menu_item";
 import './menu_page.css'
@@ -93,7 +93,7 @@ export default function Menu_page(){
             (async ()=>{
                 try{
                     const token = localStorage.getItem('token');
-                    const headers: any = {};
+                    const headers: Record<string, string> = {};
                     if (token) headers['Authorization'] = `Bearer ${token}`;
 
                     const res = await fetch('http://localhost:3000/products', { headers });
@@ -160,7 +160,6 @@ export default function Menu_page(){
             <button className="btn-shop" onClick={()=>setChose(!chose)}> {chose ?<p className="btn-shop-text"><span>Total Bill:</span> <span>{totalBill}</span></p> : <CgMenuBoxed size={30} />}</button>
             <Bill_admin></Bill_admin>
             {chose? MenuDrink(): <Bill listBill={LBill} dispatch={dispatch} total={totalBill}></Bill>}
-           
         </div>
     )
 }

@@ -48,7 +48,6 @@ export class BillService {
 
   async findAll(): Promise<Bill[]> {
     const rawResult = await this.dataSource.query('SELECT * FROM GET_ALL_BILL()');
-    
     // Vì dùng 'SELECT * FROM function()', PostgreSQL sẽ trả về trực tiếp mảng các dòng (rows) 
     // chứ không bọc trong một object chứa tên hàm nữa.
     return rawResult || [];
@@ -91,6 +90,15 @@ export class BillService {
     const bill = await this.findOne(id);
 
     Object.assign(bill, updateBillDto);
+    return await this.billRepository.save(bill);
+  }
+
+  async updateStatus(id:number, status:boolean): Promise<Bill>{
+    const bill = await this.findOne(id);
+    if(!bill){
+      throw new NotFoundException('bill is null')
+    }
+    Object.assign(bill, {status:status});
     return await this.billRepository.save(bill);
   }
 

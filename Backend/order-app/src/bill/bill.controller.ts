@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   UseGuards,
+  ParseIntPipe,
+  ParseBoolPipe,
 } from '@nestjs/common';
 import { BillService } from './bill.service';
 import { CreateBillDto } from './dto/create-bill.dto';
@@ -44,6 +46,15 @@ export class BillController {
   update(@Param('id') id: string, @Body() updateBillDto: UpdateBillDto) {
     return this.billService.update(+id, updateBillDto);
   }
+
+  @Patch(':id/status')
+    async updateStatus(
+    @Param('id',ParseIntPipe) id:number,
+    @Body('status', ParseBoolPipe) status:boolean,
+  ){
+      return await this.billService.updateStatus(id,status)
+    }
+  
 
   @Delete(':id')
   remove(@Param('id') id: string) {
