@@ -24,9 +24,16 @@ export default function Login(){
                 // Lưu access token (nếu backend trả về) và thông tin user (nếu có)
                 if (data.access_token) {
                     localStorage.setItem('token', data.access_token);
+                    localStorage.setItem('role',data.info.role);
                 }
                 localStorage.setItem('user', JSON.stringify(data.user ?? { username }));
-                navigate('/menu');
+                const role= localStorage.getItem('role');
+                if(role=='customer'){
+                    navigate('/menu');}
+                if(role=='admin'){
+                    navigate('/bill');}
+                
+            
             } else {
                 alert(data.message);
             }

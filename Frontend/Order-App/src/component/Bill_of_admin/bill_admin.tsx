@@ -18,56 +18,20 @@ type BillProp={
 }
 type BillItem_adminProp={
     listItem:BillProp
-    setBill: React.Dispatch<React.SetStateAction<BillProp[]>>
 }
-export default function BillItem_admin({listItem, setBill}:BillItem_adminProp){
+export default function BillItem_admin({listItem}:BillItem_adminProp){
 
-   const UpdateStatus=async()=>{
-    try{
-        const token=localStorage.getItem('token');
-        const response = await fetch(`http://localhost:3000/bill/${listItem.p_bill_id}/status`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    ...(token ? { 'Authorization': `Bearer ${token}` } : {})
-                },
-                body: JSON.stringify({ status:true }) // Gtrueửi dữ liệu khớp với @Body() bên backend
-            });
-        const data= await response.json();
-        if(!response.ok){
-            throw new Error(data.message || 'Cập nhật trạng thái thất bại');
-        }
-        console.log('Cập nhật thành công:', data);
-            alert('Đổi trạng thái hóa đơn thành công!');
-            setBill(prevBills => prevBills.filter(b => b.p_bill_id !== listItem.p_bill_id));
-            setChose(false)
-    }catch (error: Error) {
-            console.error('Lỗi khi cập nhật:', error.message);
-            alert(`Lỗi: ${error.message}`);
-        }
-   }
-   const [chose, setChose]=useState(false)
-   const popup=()=>{
-    return(
-        <div className="Contain-Popup">
-            <div className="Cotain-popup">
-            <h2 className="titlePopup">Xác nhận thanh toán</h2>
-            <hr/>
-            <p>Bạn chắc chắn xác nhận thanh toán hóa đơn{listItem.p_bill_id}</p>
-            <div className="btn-contain">
-                <button className="accept" onClick={UpdateStatus}>Xác nhận</button>
-                <button className="cancel" onClick={()=>setChose(false)} >Hủy</button>
-            </div>
-        </div>
-        </div>
-        
-    )
-    
-   }
-
+   
+   
     return(
         <>
             <table>
+            <colgroup>
+                <col style={{width:"40%"}} />
+                <col style={{width:"25%"}}/>
+                <col style={{width:"10%"}}/>
+                <col style={{width:"25%"}}/>
+            </colgroup>
             <thead>
                 <tr>
                     <th>Name </th>
@@ -77,14 +41,20 @@ export default function BillItem_admin({listItem, setBill}:BillItem_adminProp){
                 </tr>
             </thead>
             <tbody>
-                {listItem.p_item.map((item)=>(
+                {
+                listItem?.p_item && listItem.p_item.length > 0 ?(
+                listItem.p_item.map((item)=>(
                     <tr key={item.id}>
                         <td>{item.pr_name}</td>
                         <td>{item.pr_price}</td>
                         <td>x{item.sl}</td>
                         <td>{item.price_total}</td>
                     </tr> 
-                            ))}
+                            ))):(
+                        <tr>
+                            <td colSpan={4} style={{ textAlign: "center" }}>Không có sản phẩm</td>
+                        </tr>
+                    )}
             </tbody>
             <tfoot>
                 <tr>
@@ -93,8 +63,7 @@ export default function BillItem_admin({listItem, setBill}:BillItem_adminProp){
                 </tr>
             </tfoot>        
             </table>
-            <button onClick={()=>setChose(true)} >Thanh toan</button>
-            {chose&&popup()}
+            
            
         </>
         

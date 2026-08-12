@@ -39,6 +39,7 @@ export class UserService {
       success: true,
       message: 'Đăng nhập thành công!',
       access_token: this.jwtService.sign(payload),
+      info: payload,
     };
   }
 

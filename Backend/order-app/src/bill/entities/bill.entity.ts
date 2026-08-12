@@ -14,7 +14,7 @@ import {
 export class Bill {
   @PrimaryGeneratedColumn()
   bill_id!: number;
-
+  
   @Column({ type: 'int' })
   uid!: number;
 

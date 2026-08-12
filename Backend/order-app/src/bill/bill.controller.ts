@@ -32,6 +32,22 @@ export class BillController {
   findAll() {
     return this.billService.findAll();
   }
+  @Get('/id')
+   @UseGuards(AuthGuard('jwt'), RolesGaurd)
+  @Role('admin')
+  GetIDBill(){
+    return this.billService.getIdOfBill();
+  }
+
+  @Get(':id')
+  @UseGuards(AuthGuard('jwt'), RolesGaurd)
+  @Role('admin')
+  GetBillOfID(@Param('id') id: number){
+    return this.billService.findBillOfId(id);
+
+  }
+
+
   @Get('user/:uid')
   findBillOfUser(@Param('uid') uid: string) {
     return this.billService.findBillOfUser(+uid); // Dấu cộng (+) phía trước dùng để chuyển đổi kiểu string từ URL sang number
@@ -47,13 +63,17 @@ export class BillController {
     return this.billService.update(+id, updateBillDto);
   }
 
+  
   @Patch(':id/status')
+  @UseGuards(AuthGuard('jwt'), RolesGaurd)
+  @Role('admin')
     async updateStatus(
     @Param('id',ParseIntPipe) id:number,
     @Body('status', ParseBoolPipe) status:boolean,
-  ){
-      return await this.billService.updateStatus(id,status)
-    }
+  )
+{
+    return await this.billService.updateStatus(id,status)
+}
   
 
   @Delete(':id')

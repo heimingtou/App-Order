@@ -1,7 +1,33 @@
+.ContainBill{
+    background-image: url( "../../assets/Image/bg.png"); 
+    
+    /* Không lặp lại ảnh */
+    background-repeat: no-repeat;
+    
+    /* Canh giữa ảnh */
+    background-position: center center;
+    
+    /* Phủ kín toàn bộ khung chứa */
+    background-size: cover;
+    
+    /* Không cố định ảnh nền; để ảnh không bị mất khi cuộn bên ngoài */
+    background-attachment: scroll; 
+
+    /* Đảm bảo chiếm full chiều cao và chiều rộng màn hình */
+    width: 100%;
+    height: 100svh;
+    overflow: auto; /* container tự cuộn, giữ ảnh nền luôn hiển thị */
+    /*  */
+    /* Đặt lại margin/padding nếu áp dụng trực tiếp cho body */
+    margin: 0;
+    padding: 5px;
+    box-sizing: border-box;
+    position: relative;
+   
+}
 .Bill_admin{
-    width: 70%;
-    height: 45rem;
-    background-color: rgba(243, 168, 168, 0.31);
+    width: 60%;
+    height: fit-content;
     display: grid;
     /* Tự động sắp xếp các cột, mỗi cột tối thiểu 320px, phần dư tự co giãn */
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
@@ -10,15 +36,21 @@
     overflow-y: auto; /* Cho phép cuộn dọc nếu quá nhiều hóa đơn */
     margin: auto;
 }
-.Bill_contain{
-    height: fit-content;
-    background-color: aliceblue;
+
+.BillID{
+    margin: auto;
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+    gap: 20px;
+    justify-items: center;
+    align-items: center;
 }
 th, td{
     border-bottom: 1px solid ;
     padding:5px 3px;
     font-size: 14px;
-    color: rgb(34, 33, 33);
+    color: rgb(33, 32, 32);
 }
 table{
     width: 100%;
@@ -28,4 +60,9 @@ table{
 h1{
     color: rgb(66, 7, 7);
     font-family: 'Courier New', Courier, monospace;
+}
+.Frame{
+    width: 15rem;
+    height: 10rem;
+    background-color: black;
 }

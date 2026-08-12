@@ -1,6 +1,5 @@
 import { Bill } from 'src/bill/entities/bill.entity';
-import { Entity } from 'typeorm';
-import { Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Column, PrimaryGeneratedColumn, OneToMany, Entity } from 'typeorm';
 @Entity({ name: 'users' })
 export class User {
   @PrimaryGeneratedColumn()

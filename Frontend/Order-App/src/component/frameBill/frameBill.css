@@ -1,0 +1,20 @@
+.Contain-Bill-Popup{
+     background-color: rgba(8, 124, 225, 0.079);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.Bill_contain{
+    margin: auto;
+    margin-top: 10rem;
+    height: fit-content;
+    width: 30%;
+    background-color: beige;
+    padding-bottom: 5px;
+}
+.Bill_contain h1{
+    margin-bottom: 0.5rem;
+    padding-top: 15px;
+}

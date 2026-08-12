@@ -85,7 +85,41 @@ export class BillService {
 
     return newBill;
   }
+  async findBillOfId(id: number): Promise<Bill[]> {
+   try {
+        // Dùng $1 để đại diện cho tham số đầu tiên, và truyền [id] vào mảng phía sau
+        const rawResult = await this.dataSource.query(
+            'SELECT * FROM GET_ALL_BILL_ID($1)', 
+            [id]
+        );
+        
+        return rawResult || [];
+    } catch (error) {
+        console.error('Lỗi khi gọi hàm GET_ALL_BILL_ID:', error);
+        throw new Error('Không thể lấy thông tin hóa đơn');
+    }
+  }
+  // lay danh sach cac id cua bill
+  async getIdOfBill():Promise<{id:number, status:boolean, time: Date, total:number}[]>{
+    try {
+      const query = `SELECT bill_id, status, time,total FROM bills`;
+      const result = await this.dataSource.query(query);
+      
+      // Bây giờ hàm map trả về mảng các Object, khớp với Promise<BillIdStatus[]>
+      return result.map((row: { bill_id: number; status: boolean, time:Date, total:number }) => ({
+        id: row.bill_id, 
+        status: row.status,
+        time: row.time,
+        total:row.total
+      }));
+    } catch (error) {
+      console.error('Loi khi lay ds bill id', error);
+      throw new Error('Khong the lay danh sach hoa don');
+    }
+  }
 
+
+  // Cap nhat bill
   async update(id: number, updateBillDto: UpdateBillDto): Promise<Bill> {
     const bill = await this.findOne(id);
 
@@ -93,6 +127,7 @@ export class BillService {
     return await this.billRepository.save(bill);
   }
 
+  // cap nhat status
   async updateStatus(id:number, status:boolean): Promise<Bill>{
     const bill = await this.findOne(id);
     if(!bill){

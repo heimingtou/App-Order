@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import './Bill_admin.css'
-import BillItem_admin from "../../component/Bill_of_admin/bill_admin";
+import FrameBill from "../../component/frameBill/frameBill";
 type ItemProp={
     id: number,
     pr_id: number,
@@ -17,8 +17,16 @@ type BillProp={
     p_status: boolean,
     p_item: ItemProp[],
 }
+type billIdProp={
+    id: number,
+    status: boolean
+    time: Date,
+    total: number,
+}
 export default function Bill_admin(){
-    const [bill, setBill] = useState<BillProp[]>([]);
+    const [id, setID] = useState<billIdProp[]>([]);
+    const [bill, setBill] = useState<BillProp>();
+    const [chose, setChose]=useState(false);
 
     useEffect(() => {
         (async () => {
@@ -27,39 +35,47 @@ export default function Bill_admin(){
                 const headers: Record<string, string> = {};
                 if (token) headers['Authorization'] = `Bearer ${token}`;
 
-                const res = await fetch('http://localhost:3000/bill', { headers });
+                const res = await fetch('http://localhost:3000/bill/id', { headers });
                 const data = await res.json().catch(() => null);
 
                 if (!res.ok) {
                     console.error('Fetch bills failed', res.status, data);
-                    setBill([]);
+                    setID([]);
                 } else {
                     // Thêm phần này để lưu dữ liệu vào state khi thành công
-                    setBill(data || []);
+                    setID(data || []);
+                    
                     console.log(data);
                 }
             } catch (err) {
                 console.log('loi khi fetch', err);
-                setBill([]);
+                setID([]);
             }
         })(); // <-- Thêm cặp ngoặc tròn này để thực thi hàm bất đồng bộ ngay lập tức
     }, []); // <-- Thêm mảng dependency rỗng để chỉ gọi 1 lần khi component mount
-    const Bill=()=>{
+
+
+    
+    
+    
+
+
+    const BillID=()=>{
         return(
-          bill.filter((item)=>!item.p_status).map((item)=>(
-            <div className="Bill_contain" key={item.p_bill_id} >
-                <h1>Poem Coffee</h1>
-                 <BillItem_admin  listItem={item} setBill={setBill} ></BillItem_admin>
+            
+            <div className="BillID">
+                {id.filter(id=>!id.status).map((item)=>(
+                    <div className="Frame" key={item.id}>
+                    <FrameBill item={item}/>
+                </div>
+                ))}
             </div>
-           
-          ))
         )
+        
     }
     return (
-        <div className="ContainMenu">
-            <div className="Bill_admin">
-                {Bill()}
-            </div>
+        <div className="ContainBill">
+            { BillID()}
         </div>
     );
 }

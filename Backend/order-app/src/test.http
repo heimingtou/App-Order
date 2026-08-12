@@ -41,6 +41,10 @@ Content-Type: application/json
     }
   ]
 }
+
+###
+Get http://localhost:3000/bill/id
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsInVzZXJuYW1lIjoiYWRtaW5fbWluaCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4NjQ2OTIyNCwiZXhwIjoxNzg2NTU1NjI0fQ.2wfTBh_rqsRPgxPV4pJ-lxKnF5WyEyLTZjiiPP1gYTg
 ###
 
 Patch http://localhost:3000/bill/21/status
