@@ -25,8 +25,7 @@ type billIdProp={
 }
 export default function Bill_admin(){
     const [id, setID] = useState<billIdProp[]>([]);
-    const [bill, setBill] = useState<BillProp>();
-    const [chose, setChose]=useState(false);
+   
 
     useEffect(() => {
         (async () => {
@@ -66,9 +65,10 @@ export default function Bill_admin(){
             <div className="BillID">
                 {id.filter(id=>!id.status).map((item)=>(
                     <div className="Frame" key={item.id}>
-                    <FrameBill item={item}/>
+                    <FrameBill item={item} setBillID={setID}/>
                 </div>
                 ))}
+               
             </div>
         )
         

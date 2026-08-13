@@ -3,13 +3,14 @@ import BillItem_admin from "../Bill_of_admin/bill_admin"
 import './frameBill.css'
 import { BiArrowBack } from "react-icons/bi"
 type billIdProp={
-    id: number,
+    id: string,
     status: boolean
     time: Date,
     total: number,
 }
 type  frameBillProp={
     item: billIdProp
+    setBillID: React.Dispatch<React.SetStateAction<billIdProp[]>>;
 }
 type ItemProp={
     id: number,
@@ -20,14 +21,14 @@ type ItemProp={
     price_total:number
 }
 type BillProp={
-    p_bill_id:number ,
+    p_bill_id:string ,
     p_uid: number,
     p_total: number,
     p_time: Date,
     p_status: boolean,
     p_item: ItemProp[],
 }
-export default function FrameBill({item}:frameBillProp){
+export default function FrameBill({item, setBillID}:frameBillProp){
     const [bill,setBill]= useState<BillProp>()
     const [chose, setChose]=useState(false);
     const Bill=()=>{
@@ -60,6 +61,17 @@ export default function FrameBill({item}:frameBillProp){
         console.log('Cập nhật thành công:', data);
             alert('Đổi trạng thái hóa đơn thành công!');
             setChosePay(false)
+           setBillID(prev => 
+        prev.map(Bitem => {
+            // So sánh chính xác item.id với billId truyền vào
+            if (Bitem.id === item.id) {
+                // Trả về object mới đã cập nhật status
+                return { ...Bitem, status: true }; 
+            }
+            // Các phần tử khác giữ nguyên
+            return Bitem; 
+        })
+    );
     }catch (error: Error) {
             console.error('Lỗi khi cập nhật:', error.message);
             alert(`Lỗi: ${error.message}`);
@@ -83,7 +95,7 @@ export default function FrameBill({item}:frameBillProp){
     )
     
    }
-    const handleBill=(billID:number)=>{
+    const handleBill=(billID:string)=>{
             if (!billID) {
             alert("Đang tải danh sách ID hoặc không có hóa đơn nào, vui lòng đợi chút!");
             return;

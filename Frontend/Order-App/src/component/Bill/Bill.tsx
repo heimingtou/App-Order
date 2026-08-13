@@ -7,17 +7,18 @@ type listBillProp = {
     listBill: BillProp[];
     dispatch: Dispatch<Action>;
     total: number;
+    setChose: (status:boolean)=>void
 };
 
-export default function Bill({ listBill, dispatch, total }: listBillProp) {
+export default function Bill({ listBill, dispatch, total, setChose }: listBillProp) {
     const handleCheckout = async () => {
         if (listBill.length === 0) {
             alert("Cart is Null");
             return;
         }
-
+        const userid= localStorage.getItem('UID');
         const billData = {
-            uid: 1,
+            uid: userid,
             orderDetail: listBill.map((item) => ({
                 pr_id: item.id,
                 sl: item.quantity,
@@ -40,6 +41,7 @@ export default function Bill({ listBill, dispatch, total }: listBillProp) {
                     type: 'Clear',
                     payload: { id: 0, name: '', price: 0, quantity: 0, image: '' },
                 });
+                setChose(true);
             } else {
                 alert(`Lỗi: ${result.message || "Không thể tạo hóa đơn"}`);
             }

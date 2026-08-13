@@ -158,7 +158,7 @@ export default function Menu_page(){
                 <button className="btn-nav"  onClick={()=>goTo("Đồ ăn vặt")}>Ăn vặt</button>
             </nav>
             <button className="btn-shop" onClick={()=>setChose(!chose)}> {chose ?<p className="btn-shop-text"><span>Total Bill:</span> <span>{totalBill}</span></p> : <CgMenuBoxed size={30} />}</button>
-            {chose? MenuDrink(): <Bill listBill={LBill} dispatch={dispatch} total={totalBill}></Bill>}
+            {chose? MenuDrink(): <Bill listBill={LBill} dispatch={dispatch} total={totalBill} setChose={setChose}></Bill>}
         </div>
     )
 }

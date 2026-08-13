@@ -9,7 +9,7 @@ type ItemProp={
     price_total:number
 }
 type BillProp={
-    p_bill_id:number ,
+    p_bill_id:string ,
     p_uid: number,
     p_total: number,
     p_time: Date,

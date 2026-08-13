@@ -13,7 +13,7 @@ import {
 @Entity('bills')
 export class Bill {
   @PrimaryGeneratedColumn()
-  bill_id!: number;
+  bill_id!: string;
   
   @Column({ type: 'int' })
   uid!: number;

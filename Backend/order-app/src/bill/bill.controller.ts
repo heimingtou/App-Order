@@ -42,7 +42,7 @@ export class BillController {
   @Get(':id')
   @UseGuards(AuthGuard('jwt'), RolesGaurd)
   @Role('admin')
-  GetBillOfID(@Param('id') id: number){
+  GetBillOfID(@Param('id') id: string){
     return this.billService.findBillOfId(id);
 
   }
@@ -54,30 +54,30 @@ export class BillController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.billService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: string) {
+    return this.billService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBillDto: UpdateBillDto) {
-    return this.billService.update(+id, updateBillDto);
+  update(@Param('id', ParseIntPipe) id: string, @Body() updateBillDto: UpdateBillDto) {
+    return this.billService.update(id, updateBillDto);
   }
 
   
   @Patch(':id/status')
   @UseGuards(AuthGuard('jwt'), RolesGaurd)
   @Role('admin')
-    async updateStatus(
-    @Param('id',ParseIntPipe) id:number,
-    @Body('status', ParseBoolPipe) status:boolean,
+  async updateStatus(
+    @Param('id') id: string,
+    @Body('status', ParseBoolPipe) status: boolean,
   )
-{
-    return await this.billService.updateStatus(id,status)
+  {
+    return await this.billService.updateStatus(id, status);
 }
   
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.billService.remove(+id);
+    return this.billService.remove(id);
   }
 }
