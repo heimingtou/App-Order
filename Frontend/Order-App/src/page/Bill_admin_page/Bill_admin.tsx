@@ -25,7 +25,7 @@ type billIdProp={
 }
 export default function Bill_admin(){
     const [id, setID] = useState<billIdProp[]>([]);
-   
+   const [chosePay,setChosePay]=useState<boolean>(true)
 
     useEffect(() => {
         (async () => {
@@ -73,9 +73,31 @@ export default function Bill_admin(){
         )
         
     }
+    const BillPay=()=>{
+        return(
+              <div className="BillID">
+                {id.filter(id=>id.status).map((item)=>(
+                    <div className="Frame" key={item.id}>
+                    <FrameBill item={item} setBillID={setID}/>
+                </div>
+                ))}
+               
+            </div>
+        )
+    }
     return (
         <div className="ContainBill">
-            { BillID()}
+            <div className="btn-state">
+                <button  style={{
+                        backgroundColor:!chosePay?'#eff6ff':'#ccddf5',
+                        color:'#1d4ed8'
+                    }}  onClick={()=>setChosePay(true)}>Đã thanh toán</button>
+                <button style={{
+                        backgroundColor:chosePay?'#eff6ff':'#ccddf5',
+                        color:'#1d4ed8'
+                    }}  onClick={()=>setChosePay(false)}>Chưa thanh toán</button>
+            </div>
+            {!chosePay? BillID():BillPay()}
         </div>
     );
 }

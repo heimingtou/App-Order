@@ -41,7 +41,7 @@
     margin: auto;
     width: 80%;
     display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+    grid-template-columns: repeat(auto-fill,minmax(400px,1fr));
     gap: 20px;
     justify-items: center;
     align-items: center;
@@ -62,7 +62,28 @@ h1{
     font-family: 'Courier New', Courier, monospace;
 }
 .Frame{
-    width: 15rem;
-    height: 10rem;
-    background-color: black;
+    width: 27rem;
+    height: fit-content;
+    background-color:#ffffff;
+     border-radius: 15px;
+     overflow: hidden;
+}
+.btn-state{
+    width: 60%;
+    margin-left:auto ;
+    margin-right: auto;
+    margin-top: 35px;
+    margin-bottom: 55px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap:25px
+
+}
+.btn-state button{
+    width: 100%;
+    height: 3rem;
+    border-radius: 15px;
+    border: none;
+    font-size: 20px;
 }

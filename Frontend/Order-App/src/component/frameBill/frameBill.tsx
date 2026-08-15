@@ -2,6 +2,11 @@ import { useState } from "react"
 import BillItem_admin from "../Bill_of_admin/bill_admin"
 import './frameBill.css'
 import { BiArrowBack } from "react-icons/bi"
+import { CiCircleAlert } from "react-icons/ci"
+import { BsEyeFill } from "react-icons/bs"
+import { CgCast } from "react-icons/cg"
+import { ImPaypal } from "react-icons/im"
+import { MdPayment } from "react-icons/md"
 type billIdProp={
     id: string,
     status: boolean
@@ -84,7 +89,7 @@ export default function FrameBill({item, setBillID}:frameBillProp){
             <div className="Cotain-popup">
             <h2 className="titlePopup">Xác nhận thanh toán</h2>
             <hr/>
-            <p>Bạn chắc chắn xác nhận thanh toán hóa đơn {item.id}</p>
+            <p>Bạn chắc chắn xác nhận thanh toán hóa đơn {item.id? item.id.substring(0,8):''}</p>
             <div className="btn-contain">
                 <button className="cancel" onClick={()=>setChosePay(false)} >Hủy</button>
                 <button className="accept" onClick={UpdateStatus}>Xác nhận</button>
@@ -124,11 +129,70 @@ export default function FrameBill({item, setBillID}:frameBillProp){
                 }
             })();
         }
+    const myOrder=()=>{
+        return(
+            <div className="myOrder-Contain">
+                <div className="TopContain">
+                    <div className="idContain">
+                        <p style={{
+                            fontSize:'15px',
+                            color:'#84888a'
+                            }}>Mã hóa đơn
+                        </p>
+                        <p style={{
+                            fontSize:'23px',
+                            color:'#89d4dc',
+                            marginBottom:'15px'
+                            }}>#{item.id? item.id.substring(0,8):''}
+                        </p>
+                   
+                    </div>
+                    <div className="statusContain">
+                        <p style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            margin: 0,
+                        }}>
+                            <span style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '6px',
+                                color: item.status ? 'green' : '#f65a58'
+                            }}>
+                                <CiCircleAlert />
+                                {item.status ? 'Đã thanh toán' : 'Chưa thanh toán'}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                
+                
+                <div className="contentContain">
+                   
+                    <p className="displayContent"><span>Total:</span><strong>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.total)}</strong> </p>
+                    <p className="displayContent"><span>Date: </span>{new Date(item.time).toLocaleString()}</p>
+                </div>
+                
+                <div className="btn-bill-contain">
+                    <button style={{
+                        backgroundColor:'#e4f9fa',
+                        color:'#334155'
+                    }} onClick={()=>handleBill(item.id)}> <BsEyeFill size={20}/> Xem chi tiết</button>
+                    {!item.status&&<button style={{
+                        backgroundColor:'#0f172a',
+                        color:'#ffffff'
+                    }}   onClick={()=>setChosePay(true)} > <MdPayment size={20}/>  Thanh toan</button>}
+                </div>
+                
+            </div>
+        )
+        
+    }
     return(
         <>
-        <h2>Bill {item.id}</h2>
-        <button onClick={()=>handleBill(item.id)}>Xem</button>
-        <button   onClick={()=>setChosePay(true)} >Thanh toan</button>
+        {myOrder()}
         {chosePay&&popup()}
         {chose&& Bill()}
         </>
