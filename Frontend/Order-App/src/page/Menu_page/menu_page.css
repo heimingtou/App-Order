@@ -24,6 +24,12 @@
     opacity: 0.8;
   
 }
+.BlurBackground{
+    
+    width: 100vw;
+    min-height: 100vh;
+    background-color: rgba(0, 0, 0, 0.221);
+}
 .ContainMenu > div:last-child{
     margin-bottom: 6rem;
 }
@@ -53,10 +59,25 @@
     font-size: 30px;
     background-color: #09780a;
     border: none;
-    font-family:'Times New Roman', Times, serif;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 .btn-nav:hover{
     background-color: #0f8812;
+}
+.Search-Contain{
+    width: 45%;
+    height: 2rem;
+    margin: 1rem auto;
+
+}
+.Search-Contain input{
+    padding: 3px 8px;
+    color: black;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(192, 198, 203);
+    border-radius: 0.6rem;
+    font-size: 1.2rem;
 }
 .btn-shop{
    

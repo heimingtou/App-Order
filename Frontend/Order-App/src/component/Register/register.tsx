@@ -6,7 +6,7 @@ export default function Register() {
     const [userName, saveUserName]=useState('')
     const [email,saveEmail]=useState('')
     const RegisterUser= async ()=>{
-        const userData:{usename:string, email:string}={
+        const userData:{username:string, email:string}={
             username : userName,
             email : email
         }
@@ -22,7 +22,9 @@ export default function Register() {
             if(reponse.ok){
                 alert('dang ky thanh cong');
                 console.log("da tao user",result);
+                localStorage.setItem('role',result.role )
                 navigate('/menu');
+
             }
             else {
                 alert(`Lỗi: ${result.message || "Không thể tạo hóa đơn"}`);
