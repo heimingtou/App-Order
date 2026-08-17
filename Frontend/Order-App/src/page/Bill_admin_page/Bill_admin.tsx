@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import './Bill_admin.css'
 import FrameBill from "../../component/frameBill/frameBill";
+import { io } from "socket.io-client";
 type ItemProp={
     id: number,
     pr_id: number,
@@ -23,36 +24,52 @@ type billIdProp={
     time: Date,
     total: number,
 }
+
 export default function Bill_admin(){
     const [id, setID] = useState<billIdProp[]>([]);
    const [chosePay,setChosePay]=useState<boolean>(true)
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const token = localStorage.getItem('token');
-                const headers: Record<string, string> = {};
-                if (token) headers['Authorization'] = `Bearer ${token}`;
+    const fetchBills = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const headers: Record<string, string> = {};
+            if (token) headers['Authorization'] = `Bearer ${token}`;
 
-                const res = await fetch('http://localhost:3000/bill/id', { headers });
-                const data = await res.json().catch(() => null);
+            const res = await fetch('http://localhost:3000/bill/id', { headers });
+            const data = await res.json().catch(() => null);
 
-                if (!res.ok) {
-                    console.error('Fetch bills failed', res.status, data);
-                    setID([]);
-                } else {
-                    // Thêm phần này để lưu dữ liệu vào state khi thành công
-                    setID(data || []);
-                    
-                    console.log(data);
-                }
-            } catch (err) {
-                console.log('loi khi fetch', err);
+            if (!res.ok) {
+                console.error('Fetch bills failed', res.status, data);
                 setID([]);
+                return;
             }
-        })(); // <-- Thêm cặp ngoặc tròn này để thực thi hàm bất đồng bộ ngay lập tức
-    }, []); // <-- Thêm mảng dependency rỗng để chỉ gọi 1 lần khi component mount
 
+            setID(data || []);
+            console.log('Danh sách hóa đơn mới:', data);
+        } catch (err) {
+            console.log('loi khi fetch', err);
+            setID([]);
+        }
+    };
+
+    useEffect(() => {
+        const socket = io('http://localhost:3000');
+
+        fetchBills();
+
+        const handleNewBill = () => {
+            console.log('Nhận được đơn hàng mới realtime, reload danh sách...');
+            fetchBills();
+        };
+
+        socket.on('new_bill', handleNewBill);
+
+        return () => {
+            socket.off('new_bill', handleNewBill);
+            socket.disconnect();
+        };
+    }, []);
+    
 
     
     

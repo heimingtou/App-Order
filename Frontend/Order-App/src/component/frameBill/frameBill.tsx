@@ -4,14 +4,13 @@ import './frameBill.css'
 import { BiArrowBack } from "react-icons/bi"
 import { CiCircleAlert } from "react-icons/ci"
 import { BsEyeFill } from "react-icons/bs"
-import { CgCast } from "react-icons/cg"
-import { ImPaypal } from "react-icons/im"
 import { MdPayment } from "react-icons/md"
+import { GiCoffeeCup } from "react-icons/gi"
 type billIdProp={
     id: string,
     status: boolean
-    time: Date,
-    total: number,
+    time: Date | string,
+    total: number | string,
 }
 type  frameBillProp={
     item: billIdProp
@@ -40,9 +39,12 @@ export default function FrameBill({item, setBillID}:frameBillProp){
         return(
             <div className="Contain-Bill-Popup">
                 <div className="Bill_contain" key={bill?.p_bill_id} >
-                <h1>Poem Coffee</h1>
-                {bill && <BillItem_admin listItem={bill} />}
-                <button onClick={()=>setChose(false)}> <BiArrowBack color="black"/> </button>
+                <h1 className="nameShop"> <GiCoffeeCup/> Poem Coffee</h1>
+                <div className="ScrollBill">
+                     {bill && <BillItem_admin listItem={bill} />}
+                </div>
+               
+                <button className="btn-return-table" onClick={()=>setChose(false)}> <BiArrowBack color="black" size="25px"/> </button>
             </div>
             </div>
             
@@ -130,6 +132,7 @@ export default function FrameBill({item, setBillID}:frameBillProp){
             })();
         }
     const myOrder=()=>{
+        const totalValue = Number(item.total ?? 0);
         return(
             <div className="myOrder-Contain">
                 <div className="TopContain">
@@ -171,15 +174,12 @@ export default function FrameBill({item, setBillID}:frameBillProp){
                 
                 <div className="contentContain">
                    
-                    <p className="displayContent"><span>Total:</span><strong>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.total)}</strong> </p>
+                    <p className="displayContent"><span>Total:</span><strong>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalValue)}</strong> </p>
                     <p className="displayContent"><span>Date: </span>{new Date(item.time).toLocaleString()}</p>
                 </div>
                 
                 <div className="btn-bill-contain">
-                    <button style={{
-                        backgroundColor:'#e4f9fa',
-                        color:'#334155'
-                    }} onClick={()=>handleBill(item.id)}> <BsEyeFill size={20}/> Xem chi tiết</button>
+                    <button className="bg-blue-200 text-blue-950" onClick={()=>handleBill(item.id)}> <BsEyeFill size={20}/> Xem chi tiết</button>
                     {!item.status&&<button style={{
                         backgroundColor:'#0f172a',
                         color:'#ffffff'

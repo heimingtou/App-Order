@@ -16,14 +16,28 @@ import { UpdateBillDto } from './dto/update-bill.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGaurd } from 'src/role.guard';
 import { Role } from 'src/role.decorator';
+import { EventsGateway } from 'src/socket';
 
 @Controller('bill')
 export class BillController {
-  constructor(private readonly billService: BillService) {}
+  constructor(private readonly billService: BillService,
+      private readonly eventsGateway:EventsGateway,
+  ) {}
 
   @Post()
-  create(@Body() createBillDto: CreateBillDto) {
-    return this.billService.create(createBillDto);
+  async create(@Body() createBillDto: CreateBillDto) {
+
+    const newBill= await this.billService.create(createBillDto);
+
+    this.eventsGateway.sendNewBill({
+       id: newBill.bill_id,
+      status: newBill.status,
+      time: newBill.time,
+      total: newBill.total,
+    });
+
+    return newBill;
+   
   }
 
   @Get()

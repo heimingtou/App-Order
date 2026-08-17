@@ -1,17 +1,54 @@
 .bill-container{
-     display: grid;
-    /* Tự động chia cột: mỗi cột tối thiểu 250px, tự động lấp đầy màn hình */
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 10px; /* Khoảng cách giữa các ô */
-    padding: 5px;
-     width: min(1100px, 100%);
-    box-sizing: border-box;
-    margin: 15px auto 0;
+     margin: 5px auto;
+     width: 90%;
+     background-color: aliceblue;
+     border-radius: 15px;
+     height: fit-content;
+     padding-bottom: 2rem;
+     max-height: 65vh;
+      overflow-y: auto;
+     scrollbar-width: thin; /* Kích thước thanh cuộn: auto | thin | none */
+    scrollbar-color: #968759 #e2d9cf; /* Màu thanh cuộn (thumb) và màu nền (track) */
 
 }
+.btn-itemDlt{
+    background-color: transparent; /* Xóa màu nền */
+    border: none;                  /* Xóa viền xung quanh */
+    outline: none;                 /* Xóa viền sáng khi bấm vào */
+    box-shadow: none;              /* Xóa mọi hiệu ứng đổ bóng */
+}
+.icon:hover{
+    transform: scale(1.2);
+}
+.BillTable{
+    margin-bottom: 0.8rem;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+}
+.Total-Text{
+   width: 100%;
+}
+.Total-Text p{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: black;
+    font-size: 25px;
+    margin-left: 0.3rem;
+    margin-right: 0.3rem;
+}
+.bill-container table tbody tr:nth-child(even) {
+    background-color: #c2c0bf; /* Màu xám siêu nhạt (hoặc màu tùy ý bạn chọn) */
+}
+
+/* (Tùy chọn) Áp dụng cho các dòng lẻ (1, 3, 5,...) nếu muốn chủ động đổi cả 2 màu */
+.bill-container table tbody tr:nth-child(odd) {
+    background-color: #dad5d5; /* Màu trắng */
+}
 .TotalBill_contain{
+    width: 100%;
     height: fit-content;
-    min-height: 30rem;
 }
 .TotalBill{
    position: sticky; /* Dính cố định ở đáy khung bill-container */
@@ -28,10 +65,19 @@
     font-size: 25px;
     color: black;
 }
-.btn-Call{
+.btn-Call, .btn-Delete{
     height: 2.5rem;
     width: 5rem;
     border-radius: 15px;
     background-color: #1e771f;
     border: none;
+}
+.btnBill{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 0.5rem 3.5rem;
+}
+.btn-Delete{
+    background-color: rgb(230, 18, 18);
 }

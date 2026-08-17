@@ -25,13 +25,7 @@ export default function BillItem_admin({listItem}:BillItem_adminProp){
    
     return(
         <>
-            <table>
-            <colgroup>
-                <col style={{width:"40%"}} />
-                <col style={{width:"25%"}}/>
-                <col style={{width:"10%"}}/>
-                <col style={{width:"25%"}}/>
-            </colgroup>
+            <table className="tableContain">
             <thead>
                 <tr>
                     <th>Name </th>
@@ -40,15 +34,15 @@ export default function BillItem_admin({listItem}:BillItem_adminProp){
                     <th>total</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody >
                 {
                 listItem?.p_item && listItem.p_item.length > 0 ?(
                 listItem.p_item.map((item)=>(
                     <tr key={item.id}>
                         <td>{item.pr_name}</td>
-                        <td>{item.pr_price}</td>
+                        <td>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.pr_price)}</td>
                         <td>x{item.sl}</td>
-                        <td>{item.price_total}</td>
+                        <td>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.price_total)}</td>
                     </tr> 
                             ))):(
                         <tr>
@@ -57,9 +51,9 @@ export default function BillItem_admin({listItem}:BillItem_adminProp){
                     )}
             </tbody>
             <tfoot>
-                <tr>
-                    <td colSpan={3} style={{textAlign:"left"}}></td>
-                    <td>{listItem.p_total}</td>
+                <tr >
+                    <td colSpan={2} style={{textAlign:"left"}}><b>Total</b></td>
+                    <td colSpan={2}><b>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(listItem.p_total)}</b></td>
                 </tr>
             </tfoot>        
             </table>

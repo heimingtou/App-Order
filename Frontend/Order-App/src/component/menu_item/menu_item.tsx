@@ -36,10 +36,10 @@ export default function Menu_item({drink,listBill, dispatch}:listBillProp){
     const existingItem = listBill.find(item => item.id === drink.pr_id);
     const quantity = existingItem ? existingItem.quantity : 0;
     const [localQty, setLocalQty]= useState(quantity);
-    if(quantity!==localQty){
-        console.log(quantity)
-        setLocalQty(quantity);
-    }
+    // if(quantity!==localQty){
+    //     console.log(quantity)
+    //     setLocalQty(quantity);
+    // }
 //    useEffect(() => {
 //         console.log(quantity)
 //         setLocalQty(quantity);
@@ -113,14 +113,14 @@ const imagesUrl = new URL(`../../assets/Image/${fileName}`, import.meta.url).hre
                 <p><b>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(drink.price)}</b></p>
             </div>
            {quantity>0? (<div className="button_contain">
-                <button onClick={decrease}> <RiSubtractFill/> </button>
+                <button className=" flex items-center justify-center w-12 h-12 bg-amber-700 hover:bg-amber-600 " onClick={decrease}> <RiSubtractFill color="white"/> </button>
                 <input type="number" className="input_number" id="soluong"
                 value={localQty} // Dùng state nội bộ kết hợp useEffect để cập nhật tức thì khi bấm + / -
                         onChange={(e) => setLocalQty(e.target.value === '' ? 0 : parseInt(e.target.value))} // Cho phép gõ xóa tự do
                         onBlur={handleChange}></input>
-                <button onClick={increase}> <FaPlus/> </button>
+                <button className=" flex items-center justify-center w-12 h-12  bg-amber-700 hover:bg-amber-600" onClick={increase}> <FaPlus color="white" /> </button>
             </div>):( <div className="button_contain">
-                <button className="add_button" onClick={addProduct}>add product</button>
+                <button className="bg-[#0c182e] flex justify-center items-center w-7/10  add_button" onClick={addProduct}>add product</button>
             </div>)}
            
            

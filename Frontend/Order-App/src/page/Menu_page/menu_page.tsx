@@ -1,9 +1,15 @@
 
+import { BiCoffeeTogo, BiSearchAlt } from "react-icons/bi";
 import Bill from "../../component/Bill/Bill";
 import Menu_item from "../../component/menu_item/menu_item";
 import './menu_page.css'
 import { useEffect, useReducer, useState } from "react";
-import { CgMenuBoxed } from "react-icons/cg";
+import { CiCoffeeCup } from "react-icons/ci";
+import { PiCoffee, PiCoffeeFill, PiTeaBag } from "react-icons/pi";
+import { CgCoffee } from "react-icons/cg";
+import { SiGitea } from "react-icons/si";
+import { RiDrinks2Fill } from "react-icons/ri";
+import { FaHamburger } from "react-icons/fa";
 
 type DrinkProp = {
     pr_id: number;
@@ -29,7 +35,8 @@ export type Action =
     | { type: 'Sub'; payload: BillProp }
     | { type: 'Clear'; payload: BillProp }
     | { type: 'Handle'; payload: BillProp }
-    | { type: 'AddToBill'; payload: BillProp };
+    | { type: 'AddToBill'; payload: BillProp }
+    | { type: 'remove'; payload: number };
 export default function Menu_page(){
     const[text, setText]= useState('');
     const [menu, setMenu]= useState<CategoryProp[]>([])
@@ -77,9 +84,13 @@ export default function Menu_page(){
                             [...state,action.payload]
                         )
                 }
+                case 'remove':{
+                    return state.filter(item=> item.id!=action.payload)
+                }
                 case 'Clear':
                     return [];
                 default: return state
+
             }
         }
         const [LBill, dispatch]= useReducer(BillReducer, []);
@@ -150,22 +161,30 @@ export default function Menu_page(){
     }
     const totalBill=LBill.reduce((total,item)=> total+(item.price*item.quantity),0);
     return(
-        <div className="ContainMenu">
-            <div className="BlurBackground">
-                <nav className="nav-contain">
-                <button className="btn-nav" onClick={()=>goTo("Cà phê")}>Cà Phê</button>
-                <button className="btn-nav"  onClick={()=>goTo("Trà")}>Trà</button>
-                <button className="btn-nav"  onClick={()=>goTo("Sinh tố & Nước ép")}>Sinh tố</button>
-                <button className="btn-nav"  onClick={()=>goTo("Đồ ăn vặt")}>Ăn vặt</button>
-                </nav>
-
-                <div className="Search-Contain">
-                    <input type="text" placeholder="Tìm Kiếm" onChange={(e)=>{setText(e.target.value)}}></input>
-                </div>
-
-                <button className="btn-shop" onClick={()=>setChose(!chose)}> {chose ?<p className="btn-shop-text"><span>Total Bill:</span> <span>{totalBill}</span></p> : <CgMenuBoxed size={30} />}</button>
-                {chose? MenuDrink(): <Bill listBill={LBill} dispatch={dispatch} total={totalBill} setChose={setChose}></Bill>}
+        <div className="ContainMenu bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100">
+            <div className="">
+                <h1 className="flex items-center !my-1.5 px-1.5"> <span><CgCoffee/></span> <span>Poem Coffee</span></h1>
             </div>
+            <div className=" Search-Contain">
+                <span> <BiSearchAlt size={30}/> </span>
+                <input type="text" placeholder="Tìm Kiếm" onChange={(e)=>{setText(e.target.value)}}></input>
+            </div>
+                
+            <div className="BillMenuContain">
+                <div className="MenuSection">
+                    <nav className="nav-contain text-2xl text-amber-100 " >
+                    <button className="btn-nav" onClick={()=>goTo("Cà phê")}> <PiCoffeeFill/> Cà Phê</button>
+                    <button className="btn-nav"  onClick={()=>goTo("Trà")}> <SiGitea/> Trà</button>
+                    <button className="btn-nav"  onClick={()=>goTo("Sinh tố & Nước ép")}><RiDrinks2Fill/> Sinh tố</button>
+                    <button className="btn-nav"  onClick={()=>goTo("Đồ ăn vặt")}> <FaHamburger/>Ăn vặt</button>
+                    </nav>
+                    { MenuDrink()}
+                </div>
+                <div className="BillSection">
+                    <Bill listBill={LBill} dispatch={dispatch} total={totalBill} setChose={setChose}></Bill>
+                </div>
+            </div>
+                
         </div>
     )
 }

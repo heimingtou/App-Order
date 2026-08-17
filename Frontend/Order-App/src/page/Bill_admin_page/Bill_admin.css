@@ -30,7 +30,7 @@
     height: fit-content;
     display: grid;
     /* Tự động sắp xếp các cột, mỗi cột tối thiểu 320px, phần dư tự co giãn */
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px; /* Khoảng cách giữa các card bill */
     padding: 20px;
     overflow-y: auto; /* Cho phép cuộn dọc nếu quá nhiều hóa đơn */
@@ -39,7 +39,7 @@
 
 .BillID{
     margin: auto;
-    width: 80%;
+    width: 95%;
     display: grid;
     grid-template-columns: repeat(auto-fill,minmax(400px,1fr));
     gap: 20px;
@@ -62,7 +62,7 @@ h1{
     font-family: 'Courier New', Courier, monospace;
 }
 .Frame{
-    width: 27rem;
+    width: 22rem;
     height: fit-content;
     background-color:#ffffff;
      border-radius: 15px;

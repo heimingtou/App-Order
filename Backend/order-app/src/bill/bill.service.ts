@@ -10,6 +10,7 @@ import { UpdateBillDto } from './dto/update-bill.dto';
 import { Bill } from './entities/bill.entity';
 import { Product } from 'src/products/entities/product.entity';
 import { DataSource } from 'typeorm';
+import { EventsGateway } from 'src/socket';
 
 @Injectable()
 export class BillService {
@@ -19,6 +20,7 @@ export class BillService {
     private dataSource:DataSource,
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
+
   ) {}
 
   async create(createBillDto: CreateBillDto): Promise<Bill> {

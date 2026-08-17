@@ -5,10 +5,22 @@ th, td{
     font-size: 18px;
     color: rgb(34, 33, 33);
 }
-table{
+.tableContain{
     width: 100%;
-    margin-bottom: 35px;
+    margin-bottom: 0.5rem;
+    table-layout: auto;
+    border-collapse: collapse;
 }
+.tableContain thead th{
+    position: sticky;
+    top:0 ;
+    background-color:rgb(201, 224, 245) ;
+}
+.tableContain tfoot tr td{
+    font-size: 1.5rem;
+    
+}
+
 .Cotain-popup{
     margin-top: 10rem;
     margin-left: auto;
