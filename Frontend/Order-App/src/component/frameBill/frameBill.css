@@ -1,17 +1,17 @@
 .Contain-Bill-Popup{
-     background-color: rgba(8, 124, 225, 0.079);
+    background-color: rgba(8, 124, 225, 0.079);
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-   
-   
+    display: flex;
+    justify-content: center;
 }
 .ScrollBill{
    
     
-     max-height: 70vh;   /* Chỉ chiếm tối đa 80% chiều cao màn hình */
+     max-height: 65vh;   /* Chỉ chiếm tối đa 80% chiều cao màn hình */
     overflow-y: auto;   /* Tự động hiện thanh cuộn dọc khi nội dung bên trong vượt quá chiều cao */
     /* Tùy chỉnh thanh cuộn cho Firefox */
     scrollbar-width: thin; /* Kích thước thanh cuộn: auto | thin | none */
@@ -46,13 +46,15 @@
 }
 .Bill_contain{
 
-    margin: auto;
-    margin-top: 6rem;
+    margin: auto ;
+    margin-top: auto;
+    margin-bottom: auto;
     height: fit-content;
     width: 30%;
     background-color: beige;
     padding-bottom: 5px;
     width: 400px; 
+    border-radius: 15px;
 }
 .ScrollBill table tbody tr:nth-child(even){
     background-color: #dedad9; 
@@ -62,7 +64,7 @@
 }
 .Bill_contain h1{
     margin-bottom: 0.5rem;
-    padding-top: 15px;
+    padding-top: 5px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 45px;
 }
@@ -77,7 +79,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    margin-top: 15px;
+    margin-top: px;
     height: 4rem;
 }
 .btn-bill-contain button{
@@ -118,6 +120,7 @@
     margin-top: auto;
     margin-bottom: auto;
     margin-right: 15px;
+    margin-left: 15px;
     padding: 3px 15px;
     border-radius: 25px;
 }

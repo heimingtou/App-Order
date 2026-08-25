@@ -10,6 +10,7 @@ import { CgCoffee } from "react-icons/cg";
 import { SiGitea } from "react-icons/si";
 import { RiDrinks2Fill } from "react-icons/ri";
 import { FaHamburger } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 type DrinkProp = {
     pr_id: number;
@@ -42,6 +43,7 @@ export default function Menu_page(){
     const [menu, setMenu]= useState<CategoryProp[]>([])
     const [loading, setLoading] = useState<boolean>(true);
     const[chose,setChose]=useState(true);
+    const navigate= useNavigate();
     function BillReducer(state:BillProp[], action:Action){
         switch(action.type){
             case 'Add':{
@@ -159,11 +161,19 @@ export default function Menu_page(){
       block: "start",
     });
     }
+    const logout=()=>{
+        localStorage.removeItem('role');
+         localStorage.removeItem('token');
+         localStorage.removeItem('UID');
+
+        navigate("/");
+    }
     const totalBill=LBill.reduce((total,item)=> total+(item.price*item.quantity),0);
     return(
         <div className="ContainMenu bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100">
-            <div className="">
-                <h1 className="flex items-center !my-1.5 px-1.5"> <span><CgCoffee/></span> <span>Poem Coffee</span></h1>
+            <div className="flex flex-row justify-between">
+                <h1 className="flex items-center !my-1.5 px-1.5 !font-sans !m-8"> <span><CgCoffee/></span> <span>Poem Coffee</span></h1>
+                <button className="w-fit h-11 bg-amber-700 px-2.5 py-1 m-auto text-center mr-7 text-blue-50 rounded-xl text-[20px]" onClick={logout} >Logout</button>
             </div>
             <div className=" Search-Contain">
                 <span> <BiSearchAlt size={30}/> </span>

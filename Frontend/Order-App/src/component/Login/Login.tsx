@@ -76,7 +76,7 @@ export default function Login(){
                     </div>
                 </div>
                 </div>
-                <button className='btn-login' onClick={handleLogin}>Đăng Nhập</button>
+                <button className='btn-login text-amber-50 ' onClick={handleLogin}>Đăng Nhập</button>
             </div>
     )
 }

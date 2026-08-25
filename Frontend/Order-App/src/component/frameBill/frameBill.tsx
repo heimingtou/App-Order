@@ -39,12 +39,12 @@ export default function FrameBill({item, setBillID}:frameBillProp){
         return(
             <div className="Contain-Bill-Popup">
                 <div className="Bill_contain" key={bill?.p_bill_id} >
-                <h1 className="nameShop"> <GiCoffeeCup/> Poem Coffee</h1>
+                <h1 className="flex flex-col justify-center items-center gap-3.75 mt-1! mb-3! "> <GiCoffeeCup size={70}/> Poem Coffee</h1>
                 <div className="ScrollBill">
                      {bill && <BillItem_admin listItem={bill} />}
                 </div>
                
-                <button className="btn-return-table" onClick={()=>setChose(false)}> <BiArrowBack color="black" size="25px"/> </button>
+                <button className="bg-amber-400 w-fit px-4 py-1.5 mt-2 rounded-md hover:bg-amber-300" onClick={()=>setChose(false)}> <BiArrowBack color="black" size="25px"/> </button>
             </div>
             </div>
             
@@ -161,7 +161,7 @@ export default function FrameBill({item, setBillID}:frameBillProp){
                                 display: 'inline-flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                gap: '6px',
+                                gap: '2px',
                                 color: item.status ? 'green' : '#f65a58'
                             }}>
                                 <CiCircleAlert />
@@ -179,11 +179,8 @@ export default function FrameBill({item, setBillID}:frameBillProp){
                 </div>
                 
                 <div className="btn-bill-contain">
-                    <button className="bg-blue-200 text-blue-950" onClick={()=>handleBill(item.id)}> <BsEyeFill size={20}/> Xem chi tiết</button>
-                    {!item.status&&<button style={{
-                        backgroundColor:'#0f172a',
-                        color:'#ffffff'
-                    }}   onClick={()=>setChosePay(true)} > <MdPayment size={20}/>  Thanh toan</button>}
+                    <button className="bg-blue-300 text-blue-900 hover:bg-blue-200" onClick={()=>handleBill(item.id)}> <BsEyeFill size={20}/> Xem chi tiết</button>
+                    {!item.status&&<button className="bg-blue-950 text-amber-50 hover:bg-blue-900"  onClick={()=>setChosePay(true)} > <MdPayment size={20}/>  Thanh toan</button>}
                 </div>
                 
             </div>

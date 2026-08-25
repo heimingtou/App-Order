@@ -112,7 +112,7 @@ export default function Bill({ listBill, dispatch, total, setChose }: listBillPr
             </div>
             
             </div>
-           ):<p>Giỏ hàng hiện đang trống. Hãy thêm sản phẩm để bắt đầu mua sắm </p>
+           ):<p className="!p-2.5">Giỏ hàng hiện đang trống. Hãy thêm sản phẩm để bắt đầu mua sắm </p>
            }         
         </div>
     );

@@ -29,9 +29,13 @@ export class Product {
   @Column({ type: 'int' })
   idloai: number;
 
+  @Column({type: 'varchar' , nullable: true})
+  DECRIPTION:string;
+
   @ManyToOne(() => Category, (category) => category.idLoai)
   @JoinColumn({ name: 'idloai' })
   category: Category;
+
 
   @OneToMany(() => Orderdetail, (orderdetail) => orderdetail.product)
   orderDetail: Orderdetail[];
