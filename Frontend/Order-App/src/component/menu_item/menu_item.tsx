@@ -2,13 +2,14 @@
 import { FaPlus } from "react-icons/fa";
 import './menu_item.css'
 import { RiSubtractFill } from "react-icons/ri";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type DrinkProp={
     pr_id: number;
     name: string;
     price: number;
     image: string;
+    description:string;
     trang: boolean;
 }
 type BillProp={
@@ -108,23 +109,22 @@ const imagesUrl = new URL(`../../assets/Image/${fileName}`, import.meta.url).hre
             <div className="image_contain">
                 <img src={imagesUrl} alt={drink.name}/>      
             </div>
-            <div className="text_content">
+            <div className="text_content flex flex-col">
                 <h2 className="nameDrink">{drink.name}</h2>
+                <p className="text-[15px]! font-light p-0.5! tracking-normal text-sm/normal">{drink.description}</p>
                 <p><b>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(drink.price)}</b></p>
             </div>
-           {quantity>0? (<div className="button_contain">
+           {quantity>0?(<div className="button_contain">
                 <button className=" flex items-center justify-center w-12 h-12 bg-amber-700 hover:bg-amber-600 " onClick={decrease}> <RiSubtractFill color="white"/> </button>
                 <input type="number" className="input_number" id="soluong"
                 value={localQty} // Dùng state nội bộ kết hợp useEffect để cập nhật tức thì khi bấm + / -
-                        onChange={(e) => setLocalQty(e.target.value === '' ? 0 : parseInt(e.target.value))} // Cho phép gõ xóa tự do
-                        onBlur={handleChange}></input>
+                onChange={(e) => setLocalQty(e.target.value === '' ? 0 : parseInt(e.target.value))} // Cho phép gõ xóa tự do
+                onBlur={handleChange}></input>
                 <button className=" flex items-center justify-center w-12 h-12  bg-amber-700 hover:bg-amber-600" onClick={increase}> <FaPlus color="white" /> </button>
-            </div>):( <div className="button_contain">
+                </div>):( <div className="button_contain">
                 <button className="bg-[#0c182e] flex justify-center items-center w-7/10  add_button" onClick={addProduct}>add product</button>
-            </div>)}
-           
-           
-            
+                </div>)
+            }
         </div>
     );
 }

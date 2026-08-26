@@ -1,22 +1,22 @@
 
-import { BiCoffeeTogo, BiSearchAlt } from "react-icons/bi";
 import Bill from "../../component/Bill/Bill";
 import Menu_item from "../../component/menu_item/menu_item";
 import './menu_page.css'
 import { useEffect, useReducer, useState } from "react";
-import { CiCoffeeCup } from "react-icons/ci";
-import { PiCoffee, PiCoffeeFill, PiTeaBag } from "react-icons/pi";
+import {  PiCoffeeFill } from "react-icons/pi";
 import { CgCoffee } from "react-icons/cg";
 import { SiGitea } from "react-icons/si";
 import { RiDrinks2Fill } from "react-icons/ri";
 import { FaHamburger } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { BiSearchAlt } from "react-icons/bi";
 
 type DrinkProp = {
     pr_id: number;
     name: string;
     price: number;
     image: string;
+    description:string;
     trang: boolean;
 };
 type CategoryProp = {
@@ -130,6 +130,7 @@ export default function Menu_page(){
         }
     const MenuDrink=()=>{
         console.log(LBill)
+        console.log(menu)
         return(
             menu.map((categories)=>{
                 const filteredProducts = categories.danh_sach_san_pham.filter((product) =>

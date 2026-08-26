@@ -35,10 +35,9 @@ export class BillService {
         'Một hoặc nhiều món ăn (pr_id) không tồn tại trong hệ thống!',
       );
     }
-
     const newBill = this.billRepository.create({
       uid: createBillDto.uid,
-      status:false,
+      status: false,
       orderDetail: createBillDto.orderDetail.map((item) => ({
         pr_id: item.pr_id,
         sl: item.sl,

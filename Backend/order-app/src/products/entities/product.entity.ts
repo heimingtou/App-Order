@@ -24,13 +24,13 @@ export class Product {
   image: string;
 
   @Column({ type: 'boolean' })
-  trang: boolean;
+  status: boolean;
 
   @Column({ type: 'int' })
   idloai: number;
 
   @Column({type: 'varchar' , nullable: true})
-  DECRIPTION:string;
+  description:string;
 
   @ManyToOne(() => Category, (category) => category.idLoai)
   @JoinColumn({ name: 'idloai' })
