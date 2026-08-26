@@ -20,24 +20,21 @@ import { EventsGateway } from 'src/socket';
 
 @Controller('bill')
 export class BillController {
-  constructor(private readonly billService: BillService,
-      private readonly eventsGateway:EventsGateway,
+  constructor(
+    private readonly billService: BillService,
+    private readonly eventsGateway: EventsGateway,
   ) {}
 
   @Post()
   async create(@Body() createBillDto: CreateBillDto) {
-
-    const newBill= await this.billService.create(createBillDto);
-
+    const newBill = await this.billService.create(createBillDto);
     this.eventsGateway.sendNewBill({
-       id: newBill.bill_id,
+      id: newBill.bill_id,
       status: newBill.status,
       time: newBill.time,
       total: newBill.total,
     });
-
     return newBill;
-   
   }
 
   @Get()
@@ -47,21 +44,18 @@ export class BillController {
     return this.billService.findAll();
   }
   @Get('/id')
-   @UseGuards(AuthGuard('jwt'), RolesGaurd)
+  @UseGuards(AuthGuard('jwt'), RolesGaurd)
   @Role('admin')
-  GetIDBill(){
+  GetIDBill() {
     return this.billService.getIdOfBill();
   }
 
   @Get(':id')
   @UseGuards(AuthGuard('jwt'), RolesGaurd)
   @Role('admin')
-  GetBillOfID(@Param('id') id: string){
+  GetBillOfID(@Param('id') id: string) {
     return this.billService.findBillOfId(id);
-
   }
-
-
   @Get('user/:uid')
   findBillOfUser(@Param('uid') uid: string) {
     return this.billService.findBillOfUser(+uid); // Dấu cộng (+) phía trước dùng để chuyển đổi kiểu string từ URL sang number
@@ -73,23 +67,18 @@ export class BillController {
   }
 
   @Patch(':id')
-  update(@Param('id', ParseIntPipe) id: string, @Body() updateBillDto: UpdateBillDto) {
+  update(@Param('id') id: string, @Body() updateBillDto: UpdateBillDto) {
     return this.billService.update(id, updateBillDto);
   }
-
-  
   @Patch(':id/status')
   @UseGuards(AuthGuard('jwt'), RolesGaurd)
   @Role('admin')
   async updateStatus(
     @Param('id') id: string,
     @Body('status', ParseBoolPipe) status: boolean,
-  )
-  {
+  ) {
     return await this.billService.updateStatus(id, status);
-}
-  
-
+  }
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.billService.remove(id);

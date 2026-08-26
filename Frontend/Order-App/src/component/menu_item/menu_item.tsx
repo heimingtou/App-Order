@@ -105,7 +105,7 @@ const fileName = drink.image.split('/').pop() || '';
 const imagesUrl = new URL(`../../assets/Image/${fileName}`, import.meta.url).href;
     return(
         
-        <div className="item_contain">
+        <div className="item_contain bg-sky-100!">
             <div className="image_contain">
                 <img src={imagesUrl} alt={drink.name}/>      
             </div>

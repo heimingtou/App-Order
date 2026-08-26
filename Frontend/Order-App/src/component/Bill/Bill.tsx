@@ -8,10 +8,9 @@ type listBillProp = {
     listBill: BillProp[];
     dispatch: Dispatch<Action>;
     total: number;
-    setChose: (status:boolean)=>void
 };
 
-export default function Bill({ listBill, dispatch, total, setChose }: listBillProp) {
+export default function Bill({ listBill, dispatch, total}: listBillProp) {
     const handleCheckout = async () => {
         if (listBill.length === 0) {
             alert("Cart is Null");
@@ -42,7 +41,6 @@ export default function Bill({ listBill, dispatch, total, setChose }: listBillPr
                     type: 'Clear',
                     payload: { id: 0, name: '', price: 0, quantity: 0, image: '' },
                 });
-                setChose(true);
             } else {
                 alert(`Lỗi: ${result.message || "Không thể tạo hóa đơn"}`);
             }
@@ -58,7 +56,7 @@ export default function Bill({ listBill, dispatch, total, setChose }: listBillPr
 
     return (
         <div className="TotalBill_contain">
-            <h2 className="!text-2xl !text-left !mx-5 ">Hóa đơn của bạn</h2>
+            <h2 className="text-2xl! text-left! mx-5! ">Hóa đơn của bạn</h2>
             <hr/>
            {listBill.length!==0?
            (
@@ -112,7 +110,7 @@ export default function Bill({ listBill, dispatch, total, setChose }: listBillPr
             </div>
             
             </div>
-           ):<p className="!p-2.5">Giỏ hàng hiện đang trống. Hãy thêm sản phẩm để bắt đầu mua sắm </p>
+           ):<p className="p-2.5!">Giỏ hàng hiện đang trống. Hãy thêm sản phẩm để bắt đầu mua sắm </p>
            }         
         </div>
     );

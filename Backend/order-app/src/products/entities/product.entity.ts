@@ -12,31 +12,30 @@ import {
 @Entity('products')
 export class Product {
   @PrimaryGeneratedColumn()
-  pr_id: number;
+  pr_id!: number;
 
   @Column({ type: 'varchar', length: 100 })
-  name: string;
+  name!: string;
 
   @Column({ type: 'numeric', precision: 10, scale: 2 })
-  price: number;
+  price!: number;
 
   @Column({ type: 'varchar', length: 255 })
-  image: string;
+  image!: string;
 
   @Column({ type: 'boolean' })
-  status: boolean;
+  status!: boolean;
 
   @Column({ type: 'int' })
-  idloai: number;
+  idloai!: number;
 
-  @Column({type: 'varchar' , nullable: true})
-  description:string;
+  @Column({ type: 'varchar', nullable: true })
+  description!: string;
 
   @ManyToOne(() => Category, (category) => category.idLoai)
   @JoinColumn({ name: 'idloai' })
-  category: Category;
-
+  category!: Category;
 
   @OneToMany(() => Orderdetail, (orderdetail) => orderdetail.product)
-  orderDetail: Orderdetail[];
+  orderDetail!: Orderdetail[];
 }

@@ -10,17 +10,14 @@ import { UpdateBillDto } from './dto/update-bill.dto';
 import { Bill } from './entities/bill.entity';
 import { Product } from 'src/products/entities/product.entity';
 import { DataSource } from 'typeorm';
-import { EventsGateway } from 'src/socket';
-
 @Injectable()
 export class BillService {
   constructor(
     @InjectRepository(Bill)
     private readonly billRepository: Repository<Bill>,
-    private dataSource:DataSource,
+    private dataSource: DataSource,
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
-
   ) {}
 
   async create(createBillDto: CreateBillDto): Promise<Bill> {
@@ -48,10 +45,11 @@ export class BillService {
   }
 
   async findAll(): Promise<Bill[]> {
-    const rawResult = await this.dataSource.query('SELECT * FROM GET_ALL_BILL()');
-    // Vì dùng 'SELECT * FROM function()', PostgreSQL sẽ trả về trực tiếp mảng các dòng (rows) 
-    // chứ không bọc trong một object chứa tên hàm nữa.
-    return rawResult || [];
+    const rawResult = (await this.dataSource.query(
+      'SELECT * FROM GET_ALL_BILL()',
+    )) as unknown;
+    // Vì dùng 'SELECT * FROM function()', PostgreSQL sẽ trả về trực tiếp mảng các dòng (rows) // chứ không bọc trong một object chứa tên hàm nữa.
+    return Array.isArray(rawResult) ? (rawResult as Bill[]) : [];
   }
 
   async findOne(id: string): Promise<Bill> {
@@ -87,43 +85,51 @@ export class BillService {
     return newBill;
   }
   async findBillOfId(id: string): Promise<Bill[]> {
-   try {
-        // Dùng $1 để đại diện cho tham số đầu tiên, và truyền [id] vào mảng phía sau
-        const rawResult = await this.dataSource.query(
-            'SELECT * FROM GET_ALL_BILL_ID($1::uuid)', 
-            [id]
-        );
-        
-        return rawResult || [];
+    try {
+      // Dùng $1 để đại diện cho tham số đầu tiên, và truyền [id] vào mảng phía sau
+      const rawResult: unknown = await this.dataSource.query(
+        'SELECT * FROM GET_ALL_BILL_ID($1::uuid)',
+        [id],
+      );
+
+      return Array.isArray(rawResult) ? (rawResult as Bill[]) : [];
     } catch (error) {
-        console.error('Lỗi khi gọi hàm GET_ALL_BILL_ID:', error);
-        console.error('LỖI GỐC TỪ DATABASE:', error);
-        throw new Error('Không thể lấy thông tin hóa đơn');
+      console.error('Lỗi khi gọi hàm GET_ALL_BILL_ID:', error);
+      console.error('LỖI GỐC TỪ DATABASE:', error);
+      throw new Error('Không thể lấy thông tin hóa đơn');
     }
   }
   // lay danh sach cac id cua bill
-  async getIdOfBill():Promise<{id:string, status:boolean, time: Date, total:number}[]>{
+  async getIdOfBill(): Promise<
+    { id: string; status: boolean; time: Date; total: number }[]
+  > {
     try {
       const query = `SELECT bill_id, status, time,total FROM bills`;
-      const result = await this.dataSource.query(query);
-      
-      // Bây giờ hàm map trả về mảng các Object, khớp với Promise<BillIdStatus[]>
-      return result.map((row: { bill_id: string; status: boolean, time:Date, total:number }) => ({
-        id: row.bill_id, 
-        status: row.status,
-        time: row.time,
-        total:row.total
-      }));
+      const result: unknown = await this.dataSource.query(query);
+      if (!Array.isArray(result)) {
+        return [];
+      }
+
+      return result.map(
+        (row: {
+          bill_id: string;
+          status: boolean;
+          time: Date;
+          total: number;
+        }) => ({
+          id: row.bill_id,
+          status: row.status,
+          time: row.time,
+          total: row.total,
+        }),
+      );
     } catch (error) {
       console.error('Loi khi lay ds bill id', error);
       throw new Error('Khong the lay danh sach hoa don');
     }
   }
-
-
   // Cap nhat bill
   async update(id: string, updateBillDto: UpdateBillDto): Promise<Bill> {
-    
     const bill = await this.findOne(id);
 
     Object.assign(bill, updateBillDto);
@@ -131,20 +137,18 @@ export class BillService {
   }
 
   // cap nhat status
-  async updateStatus(id:string, status:boolean): Promise<Bill>{
-    try{
-       const bill = await this.findOne(id);
-    if(!bill){
-      throw new NotFoundException('bill is null')
-    }
-    Object.assign(bill, {status:status});
-    return await this.billRepository.save(bill);
-    } catch(error)
-    {
+  async updateStatus(id: string, status: boolean): Promise<Bill> {
+    try {
+      const bill = await this.findOne(id);
+      if (!bill) {
+        throw new NotFoundException('bill is null');
+      }
+      Object.assign(bill, { status: status });
+      return await this.billRepository.save(bill);
+    } catch (error) {
       console.error('Loi khi updateStatus', error);
       throw new Error('Khong the update status');
     }
-   
   }
 
   async remove(id: string) {
