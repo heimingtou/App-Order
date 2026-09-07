@@ -163,7 +163,7 @@ export default function FrameBill({item, setBillID}:frameBillProp){
                                 justifyContent: 'center',
                                 gap: '2px',
                                 color: item.status ? 'green' : '#f65a58'
-                            }}>
+                            }} className="text-base md:text-xl lg:text-xl" >
                                 <CiCircleAlert />
                                 {item.status ? 'Đã thanh toán' : 'Chưa thanh toán'}
                             </span>

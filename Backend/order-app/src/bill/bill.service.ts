@@ -104,7 +104,7 @@ export class BillService {
     { id: string; status: boolean; time: Date; total: number }[]
   > {
     try {
-      const query = `SELECT bill_id, status, time,total FROM bills`;
+      const query = `SELECT bill_id, status, time,total FROM bills ORDER BY time DESC`;
       const result: unknown = await this.dataSource.query(query);
       if (!Array.isArray(result)) {
         return [];

@@ -56,11 +56,11 @@ export default function Menu_page(){
                         )
                     }
                 }
-                case 'Sub':{
-                     const existing=state.findIndex(item=>item.id===action.payload.id);
-                    if(existing>=0){
-                        const currentItem= state[existing];
-                        if(currentItem.quantity>1)
+            case 'Sub':{
+                const existing=state.findIndex(item=>item.id===action.payload.id);
+                if(existing>=0){
+                    const currentItem= state[existing];
+                    if(currentItem.quantity>1)
                         {return state.map((item)=>item.id===action.payload.id?{...item,quantity:item.quantity-1}:item)}
                         else{
                             return state.filter(item =>item.id!= action.payload.id);
