@@ -1,5 +1,6 @@
 import { OrderAuditLog } from 'src/order_audit_logs/entities/order_audit_log.entity';
 import { Orderdetail } from 'src/orderdetail/entities/orderdetail.entity';
+import { Table } from 'src/tables/entities/table.entity';
 import { User } from 'src/user/entities/user.entity';
 import {
   Entity,
@@ -8,13 +9,15 @@ import {
   ManyToOne,
   JoinColumn,
   OneToMany,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
 @Entity('bills')
 export class Bill {
   @PrimaryGeneratedColumn()
   bill_id!: string;
-  
+
   @Column({ type: 'int' })
   uid!: number;
 
@@ -39,4 +42,12 @@ export class Bill {
 
   @OneToMany(() => OrderAuditLog, (orderauditlogs) => orderauditlogs.bill)
   orderauditlogs: OrderAuditLog[];
+
+  @ManyToMany(()=> Table, (table)=>table.orders)
+  @JoinTable({
+    name: 'table_order',
+    joinColumn:{name:'bill_id', referencedColumnName:'bill_id'},
+    inverseJoinColumn:{name:'table_id', referencedColumnName:'table_id'},
+  })
+  tables!: Table[];
 }
