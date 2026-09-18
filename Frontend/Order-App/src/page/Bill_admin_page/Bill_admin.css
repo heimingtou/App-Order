@@ -2,16 +2,16 @@
     /*background-image: url( "../../assets/Image/bg.png"); 
     
     /* Không lặp lại ảnh */
-    background-repeat: no-repeat;
+    /*background-repeat: no-repeat;
     
     /* Canh giữa ảnh */
-    background-position: center center;
+   /* background-position: center center;
     
     /* Phủ kín toàn bộ khung chứa */
-    background-size: cover;
+   /* background-size: cover;
     
     /* Không cố định ảnh nền; để ảnh không bị mất khi cuộn bên ngoài */
-    background-attachment: scroll; 
+    /*background-attachment: scroll; 
 
     /* Đảm bảo chiếm full chiều cao và chiều rộng màn hình */
     width: 100%;

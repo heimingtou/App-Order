@@ -32,6 +32,9 @@ export class Product {
   @Column({ type: 'varchar', nullable: true })
   description!: string;
 
+  @Column({ type: 'int' })
+  quantity!: number;
+
   @ManyToOne(() => Category, (category) => category.idLoai)
   @JoinColumn({ name: 'idloai' })
   category!: Category;

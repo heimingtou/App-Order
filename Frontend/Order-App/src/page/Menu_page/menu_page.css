@@ -10,10 +10,6 @@
 .ContainMenu{
     min-height: 100vh;
     width: 100%;
-    
-    /* --- Các thuộc tính background của bạn --- */
-   
-  
 }
 .BillMenuContain{
     display: flex;
