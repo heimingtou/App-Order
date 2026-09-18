@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import './Bill_admin.css'
 import FrameBill from "../../component/frameBill/frameBill";
 import { io } from "socket.io-client";
+import Menu_Manage from "../Menu-Magement/menu-manage";
 type ItemProp={
     id: number,
     pr_id: number,
@@ -111,7 +112,7 @@ export default function Bill_admin(){
                 </nav>
             </div>
             <div className="flex-8">
-                <div className="btn-state">
+                {/* <div className="btn-state">
                     <button  style={{
                         backgroundColor:!chosePay?'#eff6ff':'#ccddf5',
                         color:'#1d4ed8'
@@ -122,7 +123,11 @@ export default function Bill_admin(){
                         color:'#1d4ed8'
                     }}  onClick={()=>setChosePay(false)}>Chưa thanh toán</button>
                 </div>
-                {!chosePay? BillID():BillPay()}
+                {!chosePay? BillID():BillPay()} */}
+                <div className="mt-7">
+                    <Menu_Manage></Menu_Manage>
+                </div>
+                
             </div>
            
         </div>

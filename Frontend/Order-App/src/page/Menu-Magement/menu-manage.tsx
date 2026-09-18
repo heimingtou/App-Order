@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import "./menu_manage.css"
 import { data } from "react-router-dom"
+import { FaPen } from "react-icons/fa6"
 
 type productProp={
     pr_id: number,
@@ -33,13 +34,48 @@ export default function Menu_Manage(){
     const frameItem=()=>{
         return(
             <table>
-                
+                <colgroup>
+                    <col style={{width: "40%"}} />
+                    <col style={{width: "40%"}} />
+                    <col style={{width: "20%"}}/>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>NAME</th>
+                        <th>STATUS</th>
+                        <th>FIX</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {products.map((item)=>(
+                       <tr >
+                            <td>{item.name}</td>
+                            <td>{item.status?"Available":"Sold out"}</td>
+                            <td><button><FaPen/></button></td>
+                       </tr>
+                    ))}
+                    
+                </tbody>
             </table>
         )
     }
+    const InputProduct=()=>{
+        return(
+            <div>
+                input
+            </div>
+        )
+    }
     return(
-        <div className="ManageContainer  bg-linear-to-r from-indigo-200 via-red-200 to-yellow-100">
+        <div>
+            <div className="border rounded-md w-132 pt-5 m-8">
+            <h1>List product</h1>
             {frameItem()}
+            </div>
+            <div>
+                {InputProduct()}
+            </div>
         </div>
+        
     )
 }
