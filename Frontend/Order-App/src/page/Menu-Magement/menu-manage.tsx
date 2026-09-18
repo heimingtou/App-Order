@@ -61,13 +61,31 @@ export default function Menu_Manage(){
     }
     const InputProduct=()=>{
         return(
-            <div>
-                input
+            <div className="border rounded-3xl p-7 w-110 mt-8 flex flex-col gap-4">
+                <div className="flex flex-col justify-start gap-1.5">
+                    <label htmlFor="name" className="text-left">Name</label>
+                    <input type="text" id="name" className="border w-full h-11 rounded-[10px] pl-2 text-cyan-950"/>
+                </div>
+                <div className="flex flex-col justify-start gap-1.5">
+                    <label htmlFor="price" className="text-left">Price</label>
+                    <input type="text" id="price" className="border h-11 rounded-[10px] pl-2 text-cyan-950" />
+                </div>
+                <div className="flex flex-col justify-start gap-1.5">
+                    <label htmlFor="description" className="text-left">Description</label>
+                    <input type="text" id="description" className="border h-11 rounded-[10px] pl-2 text-cyan-950" />
+                </div>
+                <div className="flex flex-col justify-start gap-1.5">
+                    <label htmlFor="quantity" className="text-left">Quantity</label>
+                <input type="text" id="quantity" className="border h-11 rounded-[10px] pl-2 text-cyan-950" />
+                </div>
+               
+               
+               
             </div>
         )
     }
     return(
-        <div>
+        <div className="flex flex-row">
             <div className="border rounded-md w-132 pt-5 m-8">
             <h1>List product</h1>
             {frameItem()}
