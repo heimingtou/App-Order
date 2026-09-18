@@ -1,6 +1,9 @@
 Get http://localhost:3000/bill/3
 
 ###
+Get http://localhost:3000/products/menu
+
+###
 POST http://localhost:3000/bill
 Content-Type: application/json
 

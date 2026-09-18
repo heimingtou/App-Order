@@ -77,7 +77,7 @@ export default function Bill({ listBill, dispatch, total}: listBillProp) {
                             <th>Qty</th>
                             <th>Total</th>
                             <th> </th>
-                            </tr>
+                        </tr>
                     </thead>
                     <tbody>
                     

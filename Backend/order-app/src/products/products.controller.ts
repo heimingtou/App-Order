@@ -30,11 +30,15 @@ export class ProductsController {
   findAll() {
     return this.productsService.findAll();
   }
-
+  @Get('/menu')
+  findMenu(){
+    return this.productsService.findMenu();
+  }
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.productsService.findOne(+id);
   }
+  
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
