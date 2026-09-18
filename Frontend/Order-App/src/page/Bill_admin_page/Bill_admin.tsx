@@ -103,18 +103,28 @@ export default function Bill_admin(){
         )
     }
     return (
-        <div className="ContainBill">
-            <div className="btn-state">
-                <button  style={{
+        <div className="ContainBill flex flex-row justify-around flex-auto bg-linear-to-r from-indigo-200 via-red-200 to-yellow-100">
+            <div className="Nav flex-2  bg-emerald-200 sticky! top-0 h-screen flex flex-col">
+                <nav className="flex flex-col justify-start gap-1 mt-14 w-full">
+                    <button className="hover:bg-blue-50 w-full h-fit text-[18px] text-blue-950 font-mono p-1.5 rounded-md  ">LIST BILL</button>
+                    <button className="hover:bg-blue-50 w-full h-fit text-[18px] text-blue-950 font-mono p-1.5 ">MENU MANAGEMENT</button>
+                </nav>
+            </div>
+            <div className="flex-8">
+                <div className="btn-state">
+                    <button  style={{
                         backgroundColor:!chosePay?'#eff6ff':'#ccddf5',
                         color:'#1d4ed8'
-                    }}  onClick={()=>setChosePay(true)}>Đã thanh toán</button>
-                <button style={{
+                    }}  onClick={()=>setChosePay(true)}>Đã thanh toán
+                    </button>
+                    <button style={{
                         backgroundColor:chosePay?'#eff6ff':'#ccddf5',
                         color:'#1d4ed8'
                     }}  onClick={()=>setChosePay(false)}>Chưa thanh toán</button>
+                </div>
+                {!chosePay? BillID():BillPay()}
             </div>
-            {!chosePay? BillID():BillPay()}
+           
         </div>
     );
 }

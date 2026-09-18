@@ -1,5 +1,5 @@
 .ContainBill{
-    background-image: url( "../../assets/Image/bg.png"); 
+    /*background-image: url( "../../assets/Image/bg.png"); 
     
     /* Không lặp lại ảnh */
     background-repeat: no-repeat;
@@ -23,7 +23,6 @@
     padding: 5px;
     box-sizing: border-box;
     position: relative;
-   
 }
 .Bill_admin{
     width: 60%;
@@ -86,4 +85,9 @@ h1{
     border-radius: 15px;
     border: none;
     font-size: 20px;
+}
+.Nav{
+     background: rgba(255, 255, 255, 0.43);
+    backdrop-filter: blur(32px) saturate(95%);
+    -webkit-backdrop-filter: blur(32px) saturate(95%);
 }
