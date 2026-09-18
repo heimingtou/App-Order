@@ -122,7 +122,7 @@ const imagesUrl = new URL(`../../assets/Image/${fileName}`, import.meta.url).hre
                 onBlur={handleChange}></input>
                 <button className=" flex items-center justify-center w-12 h-12  bg-amber-700 hover:bg-amber-600" onClick={increase}> <FaPlus color="white" /> </button>
                 </div>):( <div className="button_contain">
-                <button className="bg-[#0c182e] flex justify-center items-center w-7/10  add_button" onClick={addProduct}>add product</button>
+                <button className="bg-[#0c182e] flex justify-center items-center w-7/10 hover:bg-[#0c182ed4] add_button" disabled={!drink.trang} onClick={addProduct}>{drink.trang?"Add product": "Sold out"}</button>
                 </div>)
             }
         </div>
