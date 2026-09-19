@@ -70,6 +70,16 @@ Content-Type: application/json
   "username":"admin_minh",
   "password": "adm123"
 }
+###
+PATCH  http://localhost:3000/products/2
+Content-Type: application/json
+
+{
+  "name": "Cà phê sữa đá",
+  "price": 25000,
+  "description": "Thơm đậm vị cà phê kết hợp sữa đặc",
+  "quantity": 15
+}
 
 ###
 Post http://localhost:3000/user
