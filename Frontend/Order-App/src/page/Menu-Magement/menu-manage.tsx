@@ -17,6 +17,7 @@ type InputProp={
 export default function Menu_Manage(){
     const [products, setProducts]= useState<productProp[]>([])
     const [IfProduct, setIf]=useState<InputProp>()
+    const [isChose, setChose]=useState(false);
 
     // [SỬA 1]: Đưa fetchMenu ra ngoài, dùng useCallback
     const fetchMenu = useCallback(async () => {
@@ -57,7 +58,7 @@ export default function Menu_Manage(){
                 throw new Error(`Cập nhật thất bại (${res.status}): ${errorText}`);
             }
             alert('Cập nhật thành công!');
-            
+            setChose(false)
             // [SỬA 2]: Gọi lại fetchMenu để load lại database
             await fetchMenu();
             
@@ -75,6 +76,7 @@ export default function Menu_Manage(){
                 throw new Error(`HTTP error! status: ${res.status}`);
             }
             const data:InputProp= await res.json();
+            setChose(true)
             setIf(data);
         }catch (error) {
             console.error('Không tải được chi tiết: ', error);
@@ -172,7 +174,7 @@ export default function Menu_Manage(){
                 {frameItem()}
             </div>
             <div>
-                {InputProduct()}
+                {isChose&&InputProduct()}
             </div>
         </div>
     )
