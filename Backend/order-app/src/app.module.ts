@@ -15,8 +15,6 @@ import { Orderdetail } from './orderdetail/entities/orderdetail.entity';
 import { Product } from './products/entities/product.entity';
 import { OrderAuditLogsModule } from './order_audit_logs/order_audit_logs.module';
 import { OrderAuditLog } from './order_audit_logs/entities/order_audit_log.entity';
-import { PassportModule } from '@nestjs/passport';
-import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from './auth.module';
 import { Table } from './tables/entities/table.entity';
 
@@ -36,7 +34,15 @@ import { Table } from './tables/entities/table.entity';
         username: config.get<string>('DB_USER'),
         password: config.get<string>('DB_PASS'),
         database: config.get<string>('DB_NAME'),
-        entities: [User, Bill, Category, Orderdetail, Product, OrderAuditLog, Table],
+        entities: [
+          User,
+          Bill,
+          Category,
+          Orderdetail,
+          Product,
+          OrderAuditLog,
+          Table,
+        ],
         synchronize: false,
       }),
     }),
@@ -46,7 +52,7 @@ import { Table } from './tables/entities/table.entity';
     OrderdetailModule,
     ProductsModule,
     OrderAuditLogsModule,
-    AuthModule
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,4 +1,4 @@
-import { useState } from "react"
+
 import './Bill_admin.css'
 type ItemProp={
     id: number,

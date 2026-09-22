@@ -10,9 +10,9 @@ type productProp={
 type InputProp={
     id: number,
     name:string,
-    price: number,
+    price: number|'',
     description:string,
-    quantity: number
+    quantity: number|''
 }
 export default function Menu_Manage(){
     const [products, setProducts]= useState<productProp[]>([])
@@ -35,6 +35,7 @@ export default function Menu_Manage(){
     }, []);
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         fetchMenu();
     }, [fetchMenu]);
 
@@ -69,7 +70,7 @@ export default function Menu_Manage(){
         }
     }
 
-    async function GetInput(id:number):Promise<InputProp | undefined>{
+    async function GetInput(id:number){
         try{
             const res= await fetch(`http://localhost:3000/products/${id}`);
             if(!res.ok){ 
@@ -140,7 +141,7 @@ export default function Menu_Manage(){
                         <textarea 
                             id="description" 
                             rows={3}
-                            className="border rounded-[10px] p-2 text-cyan-950 text-base whitespace-normal break-words resize-y" 
+                            className="border rounded-[10px] p-2 text-cyan-950 text-base whitespace-normal wrap-break-words resize-y" 
                             value={IfProduct?.description || ''} 
                             onChange={handleInputChange}/>
                     </div>
@@ -163,7 +164,7 @@ export default function Menu_Manage(){
         
         setIf((prev) => prev ? {
             ...prev,
-            [id]: isNumberField ? Number(value) : value,
+            [id]: isNumberField ? (value === '' ? '' : Number(value)) : value, // <-- Sửa ở đây
         } : undefined);
     };
 

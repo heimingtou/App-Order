@@ -3,27 +3,11 @@ import './Bill_admin.css'
 import FrameBill from "../../component/frameBill/frameBill";
 import { io } from "socket.io-client";
 import Menu_Manage from "../Menu-Magement/menu-manage";
-type ItemProp={
-    id: number,
-    pr_id: number,
-    pr_name:string,
-    pr_price:number,
-    sl:number,
-    price_total:number
-}
-type BillProp={
-    p_bill_id:number ,
-    p_uid: number,
-    p_total: number,
-    p_time: Date,
-    p_status: boolean,
-    p_item: ItemProp[],
-}
 type billIdProp={
-    id: number,
+    id: string,
     status: boolean
-    time: Date,
-    total: number,
+    time: Date | string,
+    total: number | string,
 }
 
 export default function Bill_admin(){
@@ -55,7 +39,7 @@ export default function Bill_admin(){
 
     useEffect(() => {
         const socket = io('http://localhost:3000');
-
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         fetchBills();
 
         const handleNewBill = () => {

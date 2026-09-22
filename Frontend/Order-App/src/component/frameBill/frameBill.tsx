@@ -79,9 +79,10 @@ export default function FrameBill({item, setBillID}:frameBillProp){
             return Bitem; 
         })
     );
-    }catch (error: Error) {
-            console.error('Lỗi khi cập nhật:', error.message);
-            alert(`Lỗi: ${error.message}`);
+        }catch (error) {
+            const message = error instanceof Error ? error.message : 'Lỗi không xác định';
+            console.error('Lỗi khi cập nhật:', message);
+            alert(`Lỗi: ${message}`);
         }
    }
     const [chosePay, setChosePay]=useState(false)
@@ -118,7 +119,7 @@ export default function FrameBill({item, setBillID}:frameBillProp){
     
                     if (!res.ok) {
                         console.error('Fetch bills failed', res.status, data);
-                        setBill(null);
+                        
                     } else {
                         // Thêm phần này để lưu dữ liệu vào state khi thành công
                         setBill(data[0] || []);
@@ -127,7 +128,7 @@ export default function FrameBill({item, setBillID}:frameBillProp){
                     }
                 } catch (err) {
                     console.log('loi khi fetch', err);
-                    setBill(null);
+                   
                 }
             })();
         }
