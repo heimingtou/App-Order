@@ -29,6 +29,7 @@ import { Table } from './tables/entities/table.entity';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         type: 'postgres',
+        url: config.get<string>('DATABASE_URL'),
         host: config.get<string>('DB_HOST'),
         port: Number(config.get<string>('DB_PORT')),
         username: config.get<string>('DB_USER'),
