@@ -20,7 +20,7 @@ export default function Bill_admin(){
             const headers: Record<string, string> = {};
             if (token) headers['Authorization'] = `Bearer ${token}`;
 
-            const res = await fetch('http://localhost:3000/bill/id', { headers });
+            const res = await fetch('https://localhost:3000/bill/id', { headers });
             const data = await res.json().catch(() => null);
 
             if (!res.ok) {
@@ -38,7 +38,7 @@ export default function Bill_admin(){
     };
 
     useEffect(() => {
-        const socket = io('http://localhost:3000');
+        const socket = io('https://localhost:3000');
         // eslint-disable-next-line react-hooks/set-state-in-effect
         fetchBills();
 

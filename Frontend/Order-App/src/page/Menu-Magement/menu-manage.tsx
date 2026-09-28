@@ -22,7 +22,7 @@ export default function Menu_Manage(){
     // [SỬA 1]: Đưa fetchMenu ra ngoài, dùng useCallback
     const fetchMenu = useCallback(async () => {
         try {
-            const res = await fetch('http://localhost:3000/products/menu');
+            const res = await fetch('https://localhost:3000/products/menu');
             if (!res.ok) {
                 throw new Error(`HTTP error! status: ${res.status}`);
             }
@@ -42,7 +42,7 @@ export default function Menu_Manage(){
     async function UpdateInfo(id:number){
         if (!IfProduct) return;
         try{
-            const res=await fetch(`http://localhost:3000/products/${id}`,{
+            const res=await fetch(`https://localhost:3000/products/${id}`,{
                 method: 'PATCH',
                 headers:{
                     'Content-Type':'application/json',
@@ -72,7 +72,7 @@ export default function Menu_Manage(){
 
     async function GetInput(id:number){
         try{
-            const res= await fetch(`http://localhost:3000/products/${id}`);
+            const res= await fetch(`https://localhost:3000/products/${id}`);
             if(!res.ok){ 
                 throw new Error(`HTTP error! status: ${res.status}`);
             }
@@ -138,12 +138,13 @@ export default function Menu_Manage(){
                     </div>
                     <div className="flex flex-col justify-start gap-1.5">
                         <label htmlFor="description" className="text-left text-sm font-medium" >Description</label>
-                        <textarea 
+                        <textarea
                             id="description" 
                             rows={3}
                             className="border rounded-[10px] p-2 text-cyan-950 text-base whitespace-normal wrap-break-words resize-y" 
                             value={IfProduct?.description || ''} 
-                            onChange={handleInputChange}/>
+                            onChange={handleInputChange}
+                        />
                     </div>
                     <div className="flex flex-col justify-start gap-1.5">
                         <label htmlFor="quantity" className="text-left text-sm font-medium">Quantity</label>

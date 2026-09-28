@@ -26,7 +26,7 @@ export default function Bill({ listBill, dispatch, total}: listBillProp) {
         };
 
         try {
-            const response = await fetch('http://localhost:3000/bill', {
+            const response = await fetch('https://localhost:3000/bill', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

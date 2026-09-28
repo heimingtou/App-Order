@@ -12,7 +12,7 @@ export default function Login(){
     const handleLogin= async (e: React.FormEvent)=>{
         e.preventDefault();
         try {
-            const response= await fetch('http://localhost:3000/user/login',{
+            const response= await fetch('https://localhost:3000/user/login',{
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password })

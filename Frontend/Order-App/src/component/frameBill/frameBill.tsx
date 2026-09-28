@@ -53,7 +53,7 @@ export default function FrameBill({item, setBillID}:frameBillProp){
     const UpdateStatus=async()=>{
     try{
         const token=localStorage.getItem('token');
-        const response = await fetch(`http://localhost:3000/bill/${item.id}/status`, {
+        const response = await fetch(`https://localhost:3000/bill/${item.id}/status`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ export default function FrameBill({item, setBillID}:frameBillProp){
                     const headers: Record<string, string> = {};
                     if (token) headers['Authorization'] = `Bearer ${token}`;
     
-                    const res = await fetch(`http://localhost:3000/bill/${billID}`, { headers });
+                    const res = await fetch(`https://localhost:3000/bill/${billID}`, { headers });
                     const data = await res.json().catch(() => null);
     
                     if (!res.ok) {
