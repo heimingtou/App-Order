@@ -101,7 +101,7 @@ export default function Menu_page(){
                     const token = localStorage.getItem('token');
                     const headers: Record<string, string> = {};
                     if (token) headers['Authorization'] = `Bearer ${token}`;
-                    const res = await fetch('https://localhost:3000/products', { headers });
+                    const res = await fetch('http://localhost:3000/products', { headers });
                     const data = await res.json().catch(()=>null);
                     if (!res.ok) {
                         console.error('Fetch products failed', res.status, data);

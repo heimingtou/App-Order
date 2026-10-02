@@ -11,7 +11,7 @@ export default function Register() {
             email : email
         }
         try{
-            const reponse= await fetch('https://localhost:3000/user',{
+            const reponse= await fetch('http://localhost:3000/user',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
